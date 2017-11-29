@@ -27,6 +27,14 @@ public class Position {
 		return direction;
 	}
 
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	public void increaseX() {
 		x++;
 	}

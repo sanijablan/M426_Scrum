@@ -1,10 +1,12 @@
 package snakegame;
 
+import javafx.application.Application;
+import view.GUI;
+
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Hello Snakegame");
-// test
+		Application.launch(GUI.class, args);
 	}
 
 }

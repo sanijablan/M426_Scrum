@@ -20,10 +20,6 @@ public class GUI extends Application {
 	private final int gridHeight = 40;
 	private final int gridWidth = 60;
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 

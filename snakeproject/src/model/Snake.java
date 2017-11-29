@@ -23,21 +23,31 @@ public class Snake {
 
 	}
 
-	public LinkedList<Position> getSnakePosition() {
+	/**
+	 * Gets the lenght of the snake body
+	 * 
+	 * @return The length of the snake
+	 */
+	public int getSnakeSize() {
+		return snakebody.size();
+	}
+
+	public LinkedList<Position> getSnakebody() {
 		return snakebody;
 	}
 
-	public Position eatFruit(int x, int y) {
-		Position pos = null;
+	/**
+	 * Adds a body element to the snakebody with the same direction as the last
+	 * element
+	 */
+	public void eatFruit() {
 		try {
 			Direction dir = snakebody.getLast().getDirection();
-			pos = new Position(x, y, dir);
+			Position pos = new Position(head.getX(), head.getY(), dir);
 			snakebody.add(pos);
-			return pos;
 		} catch (InvalidSnakePositionException e) {
 			e.printStackTrace();
 		}
-		return pos;
 	}
 
 	/**

@@ -9,13 +9,14 @@ public class CellButton extends Button {
 	// Status is either snake (blue), fruit (red) or board (white)
 	private CellStatus cellStatus;
 
-	private String snakeColor = "-fx-background-color: #1E90FF;\n" + "-fx-border-color: grey;\n"
-			+ "-fx-border-width: 0.5;";
-	private String fruitColor = "-fx-background-color: red;\n" + "-fx-border-color: grey;\n" + "-fx-border-width: 0.5;";
-	private String boardColor = "-fx-background-color: white;\n" + "-fx-border-color: grey;\n"
-			+ "-fx-border-width: 0.5;";
+	private String snakeColor = "-fx-background-color: #1E90FF;\n"
+			+ "-fx-border-color: grey;\n" + "-fx-border-width: 0.5;";
+	private String fruitColor = "-fx-background-color: red;\n"
+			+ "-fx-border-color: grey;\n" + "-fx-border-width: 0.5;";
+	private String boardColor = "-fx-background-color: white;\n"
+			+ "-fx-border-color: grey;\n" + "-fx-border-width: 0.5;";
 
-	private static final int MAXSIZE = 20;
+	private static final int MAXSIZE = 15;
 
 	public CellButton() {
 		setMaxSize(MAXSIZE, MAXSIZE);
