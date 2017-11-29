@@ -36,6 +36,17 @@ public class Snake {
 		return snakebody;
 	}
 
+	public boolean isSnakePosition(int x, int y) {
+		boolean hasThisPosition = false;
+		for (Position pos : snakebody) {
+			if (pos.getX() == x && pos.getY() == y) {
+				hasThisPosition = true;
+				break;
+			}
+		}
+		return hasThisPosition;
+	}
+
 	/**
 	 * Adds a body element to the snakebody with the same direction as the last
 	 * element
@@ -60,19 +71,19 @@ public class Snake {
 	public void updatePosition(Position pos) {
 		switch (pos.getDirection()) {
 		case NORTH:
-			head.decreaseY();
+			head.decreaseCol();
 			break;
 
 		case SOUTH:
-			head.increaseY();
+			head.increaseCol();
 			break;
 
 		case WEST:
-			head.decreaseX();
+			head.decreaseRow();
 			break;
 
 		case EAST:
-			head.increaseX();
+			head.increaseRow();
 			break;
 		}
 

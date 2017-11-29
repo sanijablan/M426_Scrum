@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.Snake;
 
 public class GUI extends Application {
 
@@ -17,8 +18,9 @@ public class GUI extends Application {
 	private HBox buttonBox;
 	private GridPane gamePane;
 
-	private final int gridHeight = 40;
-	private final int gridWidth = 60;
+	private final int gridSize = 50;
+
+	private Snake snake;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -58,10 +60,27 @@ public class GUI extends Application {
 
 	}
 
+	private int calcIndex(int row, int col) {
+		return row * gridSize + col;
+	}
+
+	private void repaintPane() {
+		for (int row = 0; row < gridSize; row++) {
+			for (int col = 0; col < gridSize; col++) {
+				if (snake.isSnakePosition(row, col)) {
+					// TODO set color of snake
+					gamePane.getChildren().get(calcIndex(row, col));
+				} else {
+					// TODO paint to board or fruit
+				}
+			}
+		}
+	}
+
 	private GridPane createGamePane() {
 		GridPane pane = new GridPane();
-		for (int row = 0; row < gridWidth; row++) {
-			for (int col = 0; col < gridHeight; col++) {
+		for (int row = 0; row < gridSize; row++) {
+			for (int col = 0; col < gridSize; col++) {
 				pane.add(new CellButton(), row, col);
 			}
 		}

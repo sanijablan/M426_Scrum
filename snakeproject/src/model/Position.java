@@ -2,23 +2,23 @@ package model;
 
 public class Position {
 
-	private int x;
-	private int y;
+	private int row;
+	private int col;
 
 	/*
 	 * The direction the snake is going
 	 */
 	private Direction direction;
 
-	public Position(int x, int y, Direction direction)
+	public Position(int row, int col, Direction direction)
 			throws InvalidSnakePositionException {
-		if (x >= 0 && y >= 0) {
-			this.x = x;
-			this.y = y;
+		if (row >= 0 && col >= 0) {
+			this.row = row;
+			this.col = col;
 			this.direction = direction;
 		} else {
 			throw new InvalidSnakePositionException(String.format(
-					"Value x{%s} and y{%s} must be greater than 0", x, y));
+					"Value x{%s} and y{%s} must be greater than 0", row, col));
 		}
 
 	}
@@ -28,26 +28,26 @@ public class Position {
 	}
 
 	public int getX() {
-		return x;
+		return row;
 	}
 
 	public int getY() {
-		return y;
+		return col;
 	}
 
-	public void increaseX() {
-		x++;
+	public void increaseRow() {
+		row++;
 	}
 
-	public void increaseY() {
-		y++;
+	public void increaseCol() {
+		col++;
 	}
 
-	public void decreaseX() {
-		x--;
+	public void decreaseRow() {
+		row--;
 	}
 
-	public void decreaseY() {
-		y--;
+	public void decreaseCol() {
+		col--;
 	}
 }
