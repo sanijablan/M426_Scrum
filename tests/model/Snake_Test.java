@@ -45,7 +45,7 @@ public class Snake_Test {
 	assertEquals(25, body.getFirst().getX());
 	assertEquals(24, body.getFirst().getY());
 
-	assertEquals(25, body.getFirst().getX());
-	assertEquals(27, body.getFirst().getY());
+	assertEquals(25, body.getLast().getX());
+	assertEquals(27, body.getLast().getY());
     }
 }

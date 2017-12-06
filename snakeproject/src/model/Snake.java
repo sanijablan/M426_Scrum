@@ -72,7 +72,7 @@ public class Snake {
 	// Richtung
 	snakebody.removeLast();
 	Position head = getNextPosition(snakebody.getFirst());
-	snakebody.add(head);
+	snakebody.addFirst(head);
 
     }
 
