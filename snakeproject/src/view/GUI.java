@@ -11,6 +11,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -61,6 +63,24 @@ public class GUI extends Application {
 
 	btnReset.setOnAction(event -> {
 	    timeline.pause();
+	});
+
+	root.setOnKeyPressed(new EventHandler<KeyEvent>() {
+	    @Override
+	    public void handle(KeyEvent event) {
+		if (event.getCode() == KeyCode.RIGHT) {
+		    System.out.println("Right Keyarrow pressed");
+		}
+		if (event.getCode() == KeyCode.LEFT) {
+		    System.out.println("Left Keyarrow pressed");
+		}
+		if (event.getCode() == KeyCode.UP) {
+		    System.out.println("Up Keyarrow pressed");
+		}
+		if (event.getCode() == KeyCode.DOWN) {
+		    System.out.println("Down Keyarrow pressed");
+		}
+	    }
 	});
 
 	root.getChildren().addAll(gamePane, buttonBox);
