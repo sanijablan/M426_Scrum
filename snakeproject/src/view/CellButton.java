@@ -1,5 +1,8 @@
 package view;
 
+import static view.CellStatus.BOARD;
+import static view.CellStatus.FRUIT;
+import static view.CellStatus.SNAKE;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -9,7 +12,7 @@ public class CellButton extends Button {
     // Status is either snake (blue), fruit (red) or board (white)
     private CellStatus cellStatus;
 
-    private String snakeColor = "-fx-background-color: grey; -fx-border-color: grey; -fx-border-width: 0.5;";
+    private String snakeColor = "-fx-background-color: blue; -fx-border-color: grey; -fx-border-width: 0.5;";
     private String fruitColor = "-fx-background-color: red; -fx-border-color: grey; -fx-border-width: 0.5;";
     private String boardColor = "-fx-background-color: white; -fx-border-color: grey; -fx-border-width: 0.5;";
 
@@ -18,7 +21,7 @@ public class CellButton extends Button {
     public CellButton() {
 	setMaxSize(MAXSIZE, MAXSIZE);
 	setMinSize(MAXSIZE, MAXSIZE);
-	cellStatus = CellStatus.BOARD;
+	cellStatus = BOARD;
 	setStyle(boardColor);
 
 	setOnAction(new EventHandler<ActionEvent>() {
@@ -29,16 +32,23 @@ public class CellButton extends Button {
 	});
     }
 
+    public CellStatus getStatus() {
+	return cellStatus;
+    }
+
     public void setStatus(CellStatus status) {
-	switch (cellStatus) {
+	switch (status) {
 	case SNAKE:
 	    this.setStyle(snakeColor);
+	    cellStatus = SNAKE;
 	    break;
 	case FRUIT:
 	    this.setStyle(fruitColor);
+	    cellStatus = FRUIT;
 	    break;
 	case BOARD:
 	    this.setStyle(boardColor);
+	    cellStatus = BOARD;
 	    break;
 	default:
 	    this.setStyle(boardColor);

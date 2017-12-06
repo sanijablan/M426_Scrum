@@ -110,7 +110,7 @@ public class GUI extends Application {
     private void printGamePane() {
 	for (int row = 0; row < gridSize; row++) {
 	    for (int col = 0; col < gridSize; col++) {
-		if (snake.isSnakePosition(row, col)) {
+		if (((CellButton) gamePane.getChildren().get(calcIndex(row, col))).getStatus().equals(SNAKE)) {
 		    System.out.print("s");
 		} else {
 		    System.out.print("o");
