@@ -67,13 +67,33 @@ public class Snake {
 	}
     }
 
+    /**
+     * Snake moves one position in the direction the head is pointing to The
+     * last element is removed and a new head element is generated
+     */
     public void move() {
-	// TODO nehme letztes Element und setze es an den Kopf in die richtige
-	// Richtung
 	snakebody.removeLast();
 	Position head = getNextPosition(snakebody.getFirst());
 	snakebody.addFirst(head);
+    }
 
+    /**
+     * Checks if the snake is still in the valid borders of the field
+     * 
+     * @param fieldsize The size of the quadratic field in which the snake can
+     * crawl
+     * @return true, if snake run out of the field
+     */
+    public boolean snakeRunOutOfField(int fieldsize) {
+	for (Position pos : snakebody) {
+	    if (pos.getX() < 0 || pos.getX() > fieldsize) {
+		return true;
+	    }
+	    if (pos.getY() < 0 || pos.getY() > fieldsize) {
+		return true;
+	    }
+	}
+	return false;
     }
 
     /**

@@ -5,6 +5,7 @@ import static view.CellStatus.SNAKE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Snake;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class GUI extends Application {
 
     private Button btnPlay;
@@ -71,6 +72,11 @@ public class GUI extends Application {
 	    @Override
 	    public void handle(Event event) {
 		snake.move();
+		if (snake.snakeRunOutOfField(gridSize)) {
+		    // TODO implement game over pane
+		    Platform.exit();
+		    System.exit(0);
+		}
 		repaintPane();
 	    }
 	}), new KeyFrame(Duration.millis(600)));
@@ -94,7 +100,6 @@ public class GUI extends Application {
 		}
 	    }
 	}
-	printGamePane();
     }
 
     private GridPane createGamePane() {
