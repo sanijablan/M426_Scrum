@@ -1,6 +1,12 @@
 package view;
 
+import static view.CellStatus.BOARD;
+import static view.CellStatus.SNAKE;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -8,82 +14,110 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Snake;
 
+@SuppressWarnings("unchecked")
 public class GUI extends Application {
 
-	private Button btnPlay;
-	private Button btnReset;
+    private Button btnPlay;
+    private Button btnReset;
 
-	private HBox buttonBox;
-	private GridPane gamePane;
+    private HBox buttonBox;
+    private GridPane gamePane;
 
-	private final int gridSize = 50;
+    private final int gridSize = 50;
 
-	private Snake snake;
+    private Timeline timeline = new Timeline();
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+    private Snake snake;
 
-		primaryStage.setTitle("Snake");
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-		FlowPane root = new FlowPane(10, 10);
-		root.setAlignment(Pos.BOTTOM_CENTER);
+	primaryStage.setTitle("Snake");
+	snake = new Snake();
 
-		gamePane = createGamePane();
+	FlowPane root = new FlowPane(10, 10);
+	root.setAlignment(Pos.BOTTOM_CENTER);
 
-		primaryStage.setScene(new Scene(root));
+	gamePane = createGamePane();
 
-		btnPlay = new Button("Play");
-		btnReset = new Button("Reset");
+	primaryStage.setScene(new Scene(root));
 
-		btnPlay.setMinWidth(60);
-		btnReset.setMinWidth(60);
+	btnPlay = new Button("Play");
+	btnReset = new Button("Reset");
 
-		buttonBox = new HBox(3.0);
-		buttonBox.getChildren().addAll(btnPlay, btnReset);
+	btnPlay.setMinWidth(60);
+	btnReset.setMinWidth(60);
 
-		btnPlay.setOnAction(event -> {
-			startSnakeGame();
-		});
+	buttonBox = new HBox(3.0);
+	buttonBox.getChildren().addAll(btnPlay, btnReset);
 
-		btnReset.setOnAction(event -> {
+	btnPlay.setOnAction(event -> {
+	    startSnakeGame();
+	});
 
-		});
+	btnReset.setOnAction(event -> {
+	    timeline.pause();
+	});
 
-		root.getChildren().addAll(gamePane, buttonBox);
-		primaryStage.show();
-	}
+	root.getChildren().addAll(gamePane, buttonBox);
+	primaryStage.show();
+    }
 
-	private void startSnakeGame() {
-		// TODO Auto-generated method stub
+    private void startSnakeGame() {
+	timeline = new Timeline(new KeyFrame(Duration.ZERO, new EventHandler() {
+	    @Override
+	    public void handle(Event event) {
+		snake.move();
+		repaintPane();
+	    }
+	}), new KeyFrame(Duration.millis(600)));
 
-	}
+	timeline.setCycleCount(Timeline.INDEFINITE);
+	timeline.play();
 
-	private int calcIndex(int row, int col) {
-		return row * gridSize + col;
-	}
+    }
 
-	private void repaintPane() {
-		for (int row = 0; row < gridSize; row++) {
-			for (int col = 0; col < gridSize; col++) {
-				if (snake.isSnakePosition(row, col)) {
-					// TODO set color of snake
-					gamePane.getChildren().get(calcIndex(row, col));
-				} else {
-					// TODO paint to board or fruit
-				}
-			}
+    private int calcIndex(int row, int col) {
+	return row * gridSize + col;
+    }
+
+    private void repaintPane() {
+	for (int row = 0; row < gridSize; row++) {
+	    for (int col = 0; col < gridSize; col++) {
+		if (snake.isSnakePosition(row, col)) {
+		    ((CellButton) gamePane.getChildren().get(calcIndex(row, col))).setStatus(SNAKE);
+		} else {
+		    ((CellButton) gamePane.getChildren().get(calcIndex(row, col))).setStatus(BOARD);
 		}
+	    }
 	}
+	printGamePane();
+    }
 
-	private GridPane createGamePane() {
-		GridPane pane = new GridPane();
-		for (int row = 0; row < gridSize; row++) {
-			for (int col = 0; col < gridSize; col++) {
-				pane.add(new CellButton(), row, col);
-			}
-		}
-		return pane;
+    private GridPane createGamePane() {
+	GridPane pane = new GridPane();
+	for (int row = 0; row < gridSize; row++) {
+	    for (int col = 0; col < gridSize; col++) {
+		pane.add(new CellButton(), row, col);
+	    }
 	}
+	return pane;
+    }
+
+    private void printGamePane() {
+	for (int row = 0; row < gridSize; row++) {
+	    for (int col = 0; col < gridSize; col++) {
+		if (snake.isSnakePosition(row, col)) {
+		    System.out.print("s");
+		} else {
+		    System.out.print("o");
+		}
+	    }
+	    System.out.println();
+	}
+	System.out.println("end");
+    }
 }

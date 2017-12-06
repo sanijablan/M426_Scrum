@@ -23,6 +23,10 @@ public class Position {
 
 	}
 
+	public Position(Position pos) throws InvalidSnakePositionException {
+		this(pos.getX(), pos.getY(), pos.getDirection());
+	}
+
 	public Direction getDirection() {
 		return direction;
 	}

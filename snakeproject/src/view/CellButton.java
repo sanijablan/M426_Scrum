@@ -6,47 +6,44 @@ import javafx.scene.control.Button;
 
 public class CellButton extends Button {
 
-	// Status is either snake (blue), fruit (red) or board (white)
-	private CellStatus cellStatus;
+    // Status is either snake (blue), fruit (red) or board (white)
+    private CellStatus cellStatus;
 
-	private String snakeColor = "-fx-background-color: #1E90FF;\n"
-			+ "-fx-border-color: grey;\n" + "-fx-border-width: 0.5;";
-	private String fruitColor = "-fx-background-color: red;\n"
-			+ "-fx-border-color: grey;\n" + "-fx-border-width: 0.5;";
-	private String boardColor = "-fx-background-color: white;\n"
-			+ "-fx-border-color: grey;\n" + "-fx-border-width: 0.5;";
+    private String snakeColor = "-fx-background-color: grey; -fx-border-color: grey; -fx-border-width: 0.5;";
+    private String fruitColor = "-fx-background-color: red; -fx-border-color: grey; -fx-border-width: 0.5;";
+    private String boardColor = "-fx-background-color: white; -fx-border-color: grey; -fx-border-width: 0.5;";
 
-	private static final int MAXSIZE = 15;
+    private static final int MAXSIZE = 15;
 
-	public CellButton() {
-		setMaxSize(MAXSIZE, MAXSIZE);
-		setMinSize(MAXSIZE, MAXSIZE);
-		cellStatus = CellStatus.BOARD;
-		setStyle(boardColor);
+    public CellButton() {
+	setMaxSize(MAXSIZE, MAXSIZE);
+	setMinSize(MAXSIZE, MAXSIZE);
+	cellStatus = CellStatus.BOARD;
+	setStyle(boardColor);
 
-		setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// button does nothing
-			}
-		});
+	setOnAction(new EventHandler<ActionEvent>() {
+	    @Override
+	    public void handle(ActionEvent event) {
+		// button does nothing
+	    }
+	});
+    }
+
+    public void setStatus(CellStatus status) {
+	switch (cellStatus) {
+	case SNAKE:
+	    this.setStyle(snakeColor);
+	    break;
+	case FRUIT:
+	    this.setStyle(fruitColor);
+	    break;
+	case BOARD:
+	    this.setStyle(boardColor);
+	    break;
+	default:
+	    this.setStyle(boardColor);
+	    break;
 	}
-
-	public void setStatus(CellStatus status) {
-		switch (cellStatus) {
-		case SNAKE:
-			this.setStyle(snakeColor);
-			break;
-		case FRUIT:
-			this.setStyle(fruitColor);
-			break;
-		case BOARD:
-			this.setStyle(boardColor);
-			break;
-		default:
-			this.setStyle(boardColor);
-			break;
-		}
-	}
+    }
 
 }
