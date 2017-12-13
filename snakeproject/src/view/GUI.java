@@ -9,7 +9,6 @@ import static view.CellStatus.SNAKE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -37,10 +36,9 @@ public class GUI extends Application {
     private GridPane gamePane;
 
     private final int gridSize = 30;
-
     private Timeline timeline = new Timeline();
-
     private Snake snake;
+    private boolean hasGameStarted = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -65,7 +63,9 @@ public class GUI extends Application {
 	buttonBox.getChildren().addAll(btnPlay, btnReset);
 
 	btnPlay.setOnAction(event -> {
-	    startSnakeGame();
+	    if (!hasGameStarted) {
+		startSnakeGame();
+	    }
 	});
 
 	btnReset.setOnAction(event -> {
@@ -95,34 +95,35 @@ public class GUI extends Application {
     }
 
     private void startSnakeGame() {
+	hasGameStarted = true;
 	timeline = new Timeline(new KeyFrame(Duration.ZERO, new EventHandler() {
 	    @Override
 	    public void handle(Event event) {
 		snake.move();
 		if (snake.snakeRunOutOfField()) {
-			timeline.stop();
-			Stage secondaryStage = new Stage();
-			BorderPane gameover = new BorderPane();
-			Label go = new Label("Game Over!");
-			VBox message = new VBox(500);
-			message.getChildren().add(go);
-			gameover.setTop(message);
-			Scene scene = new Scene(gameover, 700, 700);
-			secondaryStage.setTitle("Game Over");
-			secondaryStage.setScene(scene);
-			secondaryStage.show();
-		    //Platform.exit();
-		    //System.exit(0);
+		    timeline.stop();
+		    Stage secondaryStage = new Stage();
+		    BorderPane gameover = new BorderPane();
+		    Label go = new Label("Game Over!");
+		    VBox message = new VBox(500);
+		    message.getChildren().add(go);
+		    gameover.setTop(message);
+		    Scene scene = new Scene(gameover, 700, 700);
+		    secondaryStage.setTitle("Game Over");
+		    secondaryStage.setScene(scene);
+		    secondaryStage.show();
+		    // Platform.exit();
+		    // System.exit(0);
 		}
 		repaintPane();
 	    }
 	}), new KeyFrame(Duration.millis(600)));
 
-	if(snake.isSnakeAlive()){
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
+	if (snake.isSnakeAlive()) {
+	    timeline.setCycleCount(Timeline.INDEFINITE);
+	    timeline.play();
 	}
-	}
+    }
 
     private int calcIndex(int row, int col) {
 	return row * gridSize + col;
@@ -150,6 +151,9 @@ public class GUI extends Application {
 	return pane;
     }
 
+    /**
+     * For testing purposes prints the game pane to System.out.
+     */
     private void printGamePane() {
 	for (int row = 0; row < gridSize; row++) {
 	    for (int col = 0; col < gridSize; col++) {
