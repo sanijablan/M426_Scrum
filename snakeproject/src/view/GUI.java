@@ -43,6 +43,9 @@ public class GUI extends Application {
     private boolean hasGameStarted = false;
     private Fruit fruit;
 
+    private double speed = 350;
+    private double increment = -100;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -108,6 +111,7 @@ public class GUI extends Application {
 		if (snake.hasTouchedFruit(fruit)) {
 		    snake.eatFruit();
 		    fruit.generateRandomPosition();
+		    speed += increment;
 		}
 		if (snake.isGameOver()) {
 		    timeline.stop();
@@ -126,7 +130,7 @@ public class GUI extends Application {
 		}
 		repaintPane();
 	    }
-	}), new KeyFrame(Duration.millis(600)));
+	}), new KeyFrame(Duration.millis(speed)));
 
 	if (snake.isSnakeAlive()) {
 	    timeline.setCycleCount(Timeline.INDEFINITE);
