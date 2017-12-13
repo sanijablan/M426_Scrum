@@ -126,11 +126,11 @@ public class Snake {
      */
     private boolean snakeRanOutOfField() {
 	for (Position pos : snakebody) {
-	    if (pos.getX() < 0 || pos.getX() > fieldsize) {
+	    if (pos.getX() < 0 || pos.getX() >= fieldsize) {
 		snakeAlive = false;
 		return true;
 	    }
-	    if (pos.getY() < 0 || pos.getY() > fieldsize) {
+	    if (pos.getY() < 0 || pos.getY() >= fieldsize) {
 		snakeAlive = false;
 		return true;
 	    }

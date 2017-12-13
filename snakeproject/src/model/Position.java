@@ -57,6 +57,10 @@ public class Position {
 	col--;
     }
 
+    public void printPos() {
+	System.out.println("X: " + row + " Y: " + col);
+    }
+
     @Override
     public boolean equals(Object o) {
 	if (!(o instanceof Position)) {

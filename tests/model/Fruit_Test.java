@@ -13,7 +13,7 @@ public class Fruit_Test {
 
     @Before
     public void setUp() throws Exception {
-	snake = new Snake(4);
+	snake = new Snake(2);
 	fruit = new Fruit(snake);
     }
 

@@ -25,7 +25,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -50,7 +49,7 @@ public class GUI extends Application {
     private boolean hasGameStarted = false;
     private Fruit fruit;
 
-    private double speed = 350;
+    private double speed = 250;
     private double increment = -100;
 
     @Override
@@ -123,25 +122,29 @@ public class GUI extends Application {
 		if (snake.isGameOver()) {
 		    timeline.stop();
 		    Stage secondaryStage = new Stage();
-		    secondaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
-		        public void handle(WindowEvent we) {
-		        	Platform.exit();
-		        	System.exit(0);
-		        }
-		    }); 
+		    secondaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent we) {
+			    Platform.exit();
+			    System.exit(0);
+			}
+		    });
 		    BorderPane gameover = new BorderPane();
 		    gameover.setPrefHeight(500);
 		    gameover.setPrefWidth(500);
 		    Label go = new Label("Game Over!");
 		    go.setTextFill(Color.BLACK);
-		    go.setFont(Font.font ("Courier New", FontWeight.BOLD, 60));
+		    go.setFont(Font.font("Courier New", FontWeight.BOLD, 60));
 		    gameover.setCenter(go);
 		    Scene scene = new Scene(gameover, 380, 200);
 		    Button quit = new Button("Game Over!");
-		    gameover.setPadding(new Insets(0,0,10,0));
+		    gameover.setPadding(new Insets(0, 0, 10, 0));
 		    gameover.setBottom(quit);
 		    gameover.setAlignment(quit, Pos.BOTTOM_CENTER);
-		    quit.setOnAction((ActionEvent e) -> {Platform.exit(); System.exit(0);});
+		    quit.setOnAction((ActionEvent e) -> {
+			Platform.exit();
+			System.exit(0);
+		    });
 		    secondaryStage.setTitle("Game Over!");
 		    secondaryStage.setScene(scene);
 		    secondaryStage.show();

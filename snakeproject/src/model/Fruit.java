@@ -15,7 +15,7 @@ public class Fruit {
 
     public void generateRandomPosition() {
 	int min = 0;
-	int max = snake.getFieldsize();
+	int max = snake.getFieldsize() - 1;
 	int x = ThreadLocalRandom.current().nextInt(min, max + 1);
 	int y = ThreadLocalRandom.current().nextInt(min, max + 1);
 
@@ -24,6 +24,7 @@ public class Fruit {
 	} else {
 	    try {
 		pos = new Position(x, y, NORTH);
+		// pos.printPos();
 	    } catch (InvalidSnakePositionException e) {
 		e.printStackTrace();
 	    }
