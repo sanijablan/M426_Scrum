@@ -1,5 +1,9 @@
 package view;
 
+import static model.Direction.EAST;
+import static model.Direction.NORTH;
+import static model.Direction.SOUTH;
+import static model.Direction.WEST;
 import static view.CellStatus.BOARD;
 import static view.CellStatus.SNAKE;
 import javafx.animation.KeyFrame;
@@ -29,7 +33,7 @@ public class GUI extends Application {
     private HBox buttonBox;
     private GridPane gamePane;
 
-    private final int gridSize = 50;
+    private final int gridSize = 30;
 
     private Timeline timeline = new Timeline();
 
@@ -39,7 +43,7 @@ public class GUI extends Application {
     public void start(Stage primaryStage) throws Exception {
 
 	primaryStage.setTitle("Snake");
-	snake = new Snake();
+	snake = new Snake(gridSize);
 
 	FlowPane root = new FlowPane(10, 10);
 	root.setAlignment(Pos.BOTTOM_CENTER);
@@ -69,16 +73,16 @@ public class GUI extends Application {
 	    @Override
 	    public void handle(KeyEvent event) {
 		if (event.getCode() == KeyCode.RIGHT) {
-		    System.out.println("Right Keyarrow pressed");
+		    snake.setNewDirection(EAST);
 		}
 		if (event.getCode() == KeyCode.LEFT) {
-		    System.out.println("Left Keyarrow pressed");
+		    snake.setNewDirection(WEST);
 		}
 		if (event.getCode() == KeyCode.UP) {
-		    System.out.println("Up Keyarrow pressed");
+		    snake.setNewDirection(NORTH);
 		}
 		if (event.getCode() == KeyCode.DOWN) {
-		    System.out.println("Down Keyarrow pressed");
+		    snake.setNewDirection(SOUTH);
 		}
 	    }
 	});
@@ -92,7 +96,7 @@ public class GUI extends Application {
 	    @Override
 	    public void handle(Event event) {
 		snake.move();
-		if (snake.snakeRunOutOfField(gridSize)) {
+		if (snake.snakeRunOutOfField()) {
 		    // TODO implement game over pane
 		    Platform.exit();
 		    System.exit(0);

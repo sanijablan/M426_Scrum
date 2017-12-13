@@ -9,14 +9,16 @@ import org.junit.Test;
 
 public class Snake_Test {
 
+    private Snake snake;
+
     @Before
     public void setUp() throws Exception {
+	snake = new Snake(50);
     }
 
     @Test
     public void shouldEatFruit() {
 	// Given
-	Snake snake = new Snake();
 	int initialSize = snake.getSnakeSize();
 
 	// When
@@ -34,7 +36,6 @@ public class Snake_Test {
 	// Initial snake body positions are:
 	// Position(25, 25, NORTH), Position(25, 26, NORTH)
 	// Position(25, 27, NORTH), Position(25, 28, NORTH)
-	Snake snake = new Snake();
 
 	// When
 	snake.move();
@@ -47,5 +48,31 @@ public class Snake_Test {
 
 	assertEquals(25, body.getLast().getX());
 	assertEquals(27, body.getLast().getY());
+    }
+
+    @Test
+    public void shouldChangeDirection() {
+	// Given
+	// Snake is facing direction NORTH
+
+	// When
+	snake.setNewDirection(Direction.EAST);
+
+	// Then
+	assertEquals(Direction.EAST, snake.getSnakebody().getFirst().getDirection());
+
+    }
+
+    @Test
+    public void shouldNotChangeDirection() {
+	// Given
+	// Snake is facing direction NORTH
+
+	// When
+	snake.setNewDirection(Direction.SOUTH);
+
+	// Then
+	assertEquals(Direction.NORTH, snake.getSnakebody().getFirst().getDirection());
+
     }
 }

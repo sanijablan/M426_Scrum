@@ -7,18 +7,27 @@ import java.util.LinkedList;
 public class Snake {
 
     private LinkedList<Position> snakebody;
+    private int fieldsize;
 
-    public Snake() {
+    public Snake(int max) {
 	snakebody = new LinkedList<>();
+	fieldsize = max;
+
+	int posX = max / 2;
+	int posY = posX;
 	try {
-	    snakebody.add(new Position(25, 25, NORTH));
-	    snakebody.add(new Position(25, 26, NORTH));
-	    snakebody.add(new Position(25, 27, NORTH));
-	    snakebody.add(new Position(25, 28, NORTH));
+	    snakebody.add(new Position(posX, posY++, NORTH));
+	    snakebody.add(new Position(posX, posY++, NORTH));
+	    snakebody.add(new Position(posX, posY++, NORTH));
+	    snakebody.add(new Position(posX, posY, NORTH));
 	} catch (InvalidSnakePositionException e) {
 	    e.printStackTrace();
 	}
 
+    }
+
+    public int getFieldsize() {
+	return fieldsize;
     }
 
     /**
@@ -78,13 +87,25 @@ public class Snake {
     }
 
     /**
+     * Changes the direction the snake is facing
+     * 
+     * @param dir The direction the snake should go
+     */
+    public void setNewDirection(Direction dir) {
+	Direction headDir = snakebody.getFirst().getDirection();
+	if (!dir.equals(headDir.getOppositeDirection())) {
+	    snakebody.getFirst().setDirection(dir);
+	}
+    }
+
+    /**
      * Checks if the snake is still in the valid borders of the field
      * 
      * @param fieldsize The size of the quadratic field in which the snake can
      * crawl
      * @return true, if snake run out of the field
      */
-    public boolean snakeRunOutOfField(int fieldsize) {
+    public boolean snakeRunOutOfField() {
 	for (Position pos : snakebody) {
 	    if (pos.getX() < 0 || pos.getX() > fieldsize) {
 		return true;
