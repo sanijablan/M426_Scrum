@@ -5,6 +5,7 @@ import static model.Direction.NORTH;
 import static model.Direction.SOUTH;
 import static model.Direction.WEST;
 import static view.CellStatus.BOARD;
+import static view.CellStatus.FRUIT;
 import static view.CellStatus.SNAKE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Fruit;
 import model.Snake;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -39,12 +41,14 @@ public class GUI extends Application {
     private Timeline timeline = new Timeline();
     private Snake snake;
     private boolean hasGameStarted = false;
+    private Fruit fruit;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
 	primaryStage.setTitle("Snake");
 	snake = new Snake(gridSize);
+	fruit = new Fruit(snake);
 
 	FlowPane root = new FlowPane(10, 10);
 	root.setAlignment(Pos.BOTTOM_CENTER);
@@ -64,6 +68,7 @@ public class GUI extends Application {
 
 	btnPlay.setOnAction(event -> {
 	    if (!hasGameStarted) {
+		fruit.generateRandomPosition();
 		startSnakeGame();
 	    }
 	});
@@ -132,10 +137,16 @@ public class GUI extends Application {
     private void repaintPane() {
 	for (int row = 0; row < gridSize; row++) {
 	    for (int col = 0; col < gridSize; col++) {
+		CellButton cb = (CellButton) gamePane.getChildren().get(calcIndex(row, col));
 		if (snake.isSnakePosition(row, col)) {
-		    ((CellButton) gamePane.getChildren().get(calcIndex(row, col))).setStatus(SNAKE);
+		    cb.setStatus(SNAKE);
 		} else {
-		    ((CellButton) gamePane.getChildren().get(calcIndex(row, col))).setStatus(BOARD);
+		    if (fruit.isFruitPosition(row, col)) {
+			cb.setStatus(FRUIT);
+
+		    } else {
+			cb.setStatus(BOARD);
+		    }
 		}
 	    }
 	}
