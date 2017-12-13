@@ -40,9 +40,7 @@ public class Fruit {
 
     public boolean isFruitPosition(int x, int y) {
 	if (pos != null) {
-	    if (pos.getX() == x && pos.getY() == y) {
-		return true;
-	    }
+	    return pos.getX() == x && pos.getY() == y;
 	}
 	return false;
     }

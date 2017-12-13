@@ -30,9 +30,9 @@ public class Snake {
     public int getFieldsize() {
 	return fieldsize;
     }
-    
-    public boolean isSnakeAlive(){
-    	return snakeAlive;
+
+    public boolean isSnakeAlive() {
+	return snakeAlive;
     }
 
     /**
@@ -64,6 +64,18 @@ public class Snake {
 	    }
 	}
 	return hasThisPosition;
+    }
+
+    /**
+     * Checks whether the snake head has the same position as a fruit
+     * 
+     * @param fruit The Fruit that is available
+     * @return true, if the snake head touched the fruit
+     */
+    public boolean hasTouchedFruit(Fruit fruit) {
+	int headX = snakebody.getFirst().getX();
+	int headY = snakebody.getFirst().getY();
+	return fruit.isFruitPosition(headX, headY);
     }
 
     /**

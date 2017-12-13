@@ -105,6 +105,10 @@ public class GUI extends Application {
 	    @Override
 	    public void handle(Event event) {
 		snake.move();
+		if (snake.hasTouchedFruit(fruit)) {
+		    snake.eatFruit();
+		    fruit.generateRandomPosition();
+		}
 		if (snake.snakeRunOutOfField()) {
 		    timeline.stop();
 		    Stage secondaryStage = new Stage();
