@@ -56,4 +56,13 @@ public class Position {
     public void decreaseCol() {
 	col--;
     }
+
+    @Override
+    public boolean equals(Object o) {
+	if (!(o instanceof Position)) {
+	    return false;
+	}
+	Position oPos = (Position) o;
+	return oPos.getX() == row && oPos.getY() == col;
+    }
 }

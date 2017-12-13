@@ -109,7 +109,7 @@ public class GUI extends Application {
 		    snake.eatFruit();
 		    fruit.generateRandomPosition();
 		}
-		if (snake.snakeRunOutOfField()) {
+		if (snake.isGameOver()) {
 		    timeline.stop();
 		    Stage secondaryStage = new Stage();
 		    BorderPane gameover = new BorderPane();

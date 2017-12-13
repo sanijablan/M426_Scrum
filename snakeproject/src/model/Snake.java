@@ -124,7 +124,7 @@ public class Snake {
      * crawl
      * @return true, if snake run out of the field
      */
-    public boolean snakeRunOutOfField() {
+    private boolean snakeRanOutOfField() {
 	for (Position pos : snakebody) {
 	    if (pos.getX() < 0 || pos.getX() > fieldsize) {
 		snakeAlive = false;
@@ -136,6 +136,20 @@ public class Snake {
 	    }
 	}
 	return false;
+    }
+
+    private boolean snakeRanOverItself() {
+	Position head = snakebody.getFirst();
+	for (int i = 1; i < snakebody.size(); i++) {
+	    if (snakebody.get(i).equals(head)) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
+    public boolean isGameOver() {
+	return snakeRanOutOfField() || snakeRanOverItself();
     }
 
     /**
