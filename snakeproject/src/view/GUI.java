@@ -15,11 +15,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Snake;
@@ -97,18 +100,29 @@ public class GUI extends Application {
 	    public void handle(Event event) {
 		snake.move();
 		if (snake.snakeRunOutOfField()) {
-		    // TODO implement game over pane
-		    Platform.exit();
-		    System.exit(0);
+			timeline.stop();
+			Stage secondaryStage = new Stage();
+			BorderPane gameover = new BorderPane();
+			Label go = new Label("Game Over!");
+			VBox message = new VBox(500);
+			message.getChildren().add(go);
+			gameover.setTop(message);
+			Scene scene = new Scene(gameover, 700, 700);
+			secondaryStage.setTitle("Game Over");
+			secondaryStage.setScene(scene);
+			secondaryStage.show();
+		    //Platform.exit();
+		    //System.exit(0);
 		}
 		repaintPane();
 	    }
 	}), new KeyFrame(Duration.millis(600)));
 
-	timeline.setCycleCount(Timeline.INDEFINITE);
-	timeline.play();
-
-    }
+	if(snake.isSnakeAlive()){
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+	}
+	}
 
     private int calcIndex(int row, int col) {
 	return row * gridSize + col;

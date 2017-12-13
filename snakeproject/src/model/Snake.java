@@ -30,6 +30,10 @@ public class Snake {
     public int getFieldsize() {
 	return fieldsize;
     }
+    
+    public boolean isSnakeAlive(){
+    	return snakeAlive;
+    }
 
     /**
      * Gets the length of the snake body
