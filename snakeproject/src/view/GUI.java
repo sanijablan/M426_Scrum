@@ -10,8 +10,11 @@ import static view.CellStatus.SNAKE;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,7 +26,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.Fruit;
 import model.Snake;
@@ -116,17 +123,28 @@ public class GUI extends Application {
 		if (snake.isGameOver()) {
 		    timeline.stop();
 		    Stage secondaryStage = new Stage();
+		    secondaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+		        public void handle(WindowEvent we) {
+		        	Platform.exit();
+		        	System.exit(0);
+		        }
+		    }); 
 		    BorderPane gameover = new BorderPane();
+		    gameover.setPrefHeight(500);
+		    gameover.setPrefWidth(500);
 		    Label go = new Label("Game Over!");
-		    VBox message = new VBox(500);
-		    message.getChildren().add(go);
-		    gameover.setTop(message);
-		    Scene scene = new Scene(gameover, 700, 700);
-		    secondaryStage.setTitle("Game Over");
+		    go.setTextFill(Color.BLACK);
+		    go.setFont(Font.font ("Courier New", FontWeight.BOLD, 60));
+		    gameover.setCenter(go);
+		    Scene scene = new Scene(gameover, 380, 200);
+		    Button quit = new Button("Game Over!");
+		    gameover.setPadding(new Insets(0,0,10,0));
+		    gameover.setBottom(quit);
+		    gameover.setAlignment(quit, Pos.BOTTOM_CENTER);
+		    quit.setOnAction((ActionEvent e) -> {Platform.exit(); System.exit(0);});
+		    secondaryStage.setTitle("Game Over!");
 		    secondaryStage.setScene(scene);
 		    secondaryStage.show();
-		    // Platform.exit();
-		    // System.exit(0);
 		}
 		repaintPane();
 	    }
