@@ -8,6 +8,7 @@ public class Snake {
 
     private LinkedList<Position> snakebody;
     private int fieldsize;
+    private boolean snakeAlive = true;
 
     public Snake(int max) {
 	snakebody = new LinkedList<>();
@@ -81,9 +82,11 @@ public class Snake {
      * last element is removed and a new head element is generated
      */
     public void move() {
-	snakebody.removeLast();
-	Position head = getNextPosition(snakebody.getFirst());
-	snakebody.addFirst(head);
+	if (snakeAlive) {
+	    snakebody.removeLast();
+	    Position head = getNextPosition(snakebody.getFirst());
+	    snakebody.addFirst(head);
+	}
     }
 
     /**
@@ -108,9 +111,11 @@ public class Snake {
     public boolean snakeRunOutOfField() {
 	for (Position pos : snakebody) {
 	    if (pos.getX() < 0 || pos.getX() > fieldsize) {
+		snakeAlive = false;
 		return true;
 	    }
 	    if (pos.getY() < 0 || pos.getY() > fieldsize) {
+		snakeAlive = false;
 		return true;
 	    }
 	}
