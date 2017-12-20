@@ -8,6 +8,3 @@ jobs:
     language: java
     jdk:
       - oraclejdk7
-    script:
-      - javac PositionTest
-      - java -classpath junit.jar PositionTest
