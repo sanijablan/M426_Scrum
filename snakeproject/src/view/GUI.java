@@ -31,6 +31,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import model.Direction;
 import model.Fruit;
 import model.Snake;
 
@@ -46,6 +47,7 @@ public class GUI extends Application {
 
     private final int gridSize = 30;
     private Timeline timeline = new Timeline();
+    private Direction pressedDir;
     private Snake snake;
     private boolean hasGameStarted = false;
     private Fruit fruit;
@@ -100,16 +102,20 @@ public class GUI extends Application {
 	    @Override
 	    public void handle(KeyEvent event) {
 		if (event.getCode() == KeyCode.RIGHT) {
-		    snake.setNewDirection(EAST);
+		    //snake.setNewDirection(EAST);
+		    pressedDir = EAST;
 		}
 		if (event.getCode() == KeyCode.LEFT) {
-		    snake.setNewDirection(WEST);
+		    //snake.setNewDirection(WEST);
+		    pressedDir = WEST;
 		}
 		if (event.getCode() == KeyCode.UP) {
-		    snake.setNewDirection(NORTH);
+		    //snake.setNewDirection(NORTH);
+		    pressedDir = NORTH;
 		}
 		if (event.getCode() == KeyCode.DOWN) {
-		    snake.setNewDirection(SOUTH);
+		    //snake.setNewDirection(SOUTH);
+		    pressedDir = SOUTH;
 		}
 	    }
 	});
@@ -124,6 +130,9 @@ public class GUI extends Application {
 	timeline = new Timeline(new KeyFrame(Duration.ZERO, new EventHandler() {
 	    @Override
 	    public void handle(Event event) {
+	    	if (pressedDir != null) {
+	    		snake.setNewDirection(pressedDir);
+	    	}
 		snake.move();
 		if (snake.snakeReachedFruit(fruit)) {
 		    snake.eatFruit();
