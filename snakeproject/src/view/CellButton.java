@@ -18,6 +18,9 @@ public class CellButton extends Button {
 
     private static final int MAXSIZE = 15;
 
+    /**
+     * Creates a CellButton with maximum size.
+     */
     public CellButton() {
 	setMaxSize(MAXSIZE, MAXSIZE);
 	setMinSize(MAXSIZE, MAXSIZE);
@@ -36,6 +39,11 @@ public class CellButton extends Button {
 	return cellStatus;
     }
 
+    /**
+     * Sets the status of a cell.
+     * 
+     * @param status The status of a cell. Can be SNAKE, FRUIT or BOARD
+     */
     public void setStatus(CellStatus status) {
 	switch (status) {
 	case SNAKE:

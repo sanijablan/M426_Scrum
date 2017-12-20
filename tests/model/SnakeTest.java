@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 
-public class Snake_Test {
+public class SnakeTest {
 
     private Snake snake;
 
