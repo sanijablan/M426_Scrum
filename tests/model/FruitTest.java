@@ -18,7 +18,7 @@ public class FruitTest {
     }
 
     @Test
-    public void shouldCreateFruit() {
+    public void shouldCreateFruitWithPosition() {
 	// When
 	fruit.generateRandomPosition();
 
@@ -39,6 +39,21 @@ public class FruitTest {
 
 	// Then
 	assertTrue(result);
+
+    }
+
+    @Test
+    public void shouldNotBeFruitPosition() {
+	// Given
+	fruit.generateRandomPosition();
+	int x = fruit.getX() + 1;
+	int y = fruit.getY() + 1;
+
+	// When
+	boolean result = fruit.isFruitPosition(x, y);
+
+	// Then
+	assertFalse(result);
 
     }
 

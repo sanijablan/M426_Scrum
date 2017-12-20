@@ -1,6 +1,8 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 
@@ -17,7 +19,7 @@ public class SnakeTest {
     }
 
     @Test
-    public void shouldEatFruit() {
+    public void shouldIncreaseWhenEatingFruit() {
 	// Given
 	int initialSize = snake.getSnakeSize();
 
@@ -74,5 +76,55 @@ public class SnakeTest {
 	// Then
 	assertEquals(Direction.NORTH, snake.getSnakebody().getFirst().getDirection());
 
+    }
+
+    @Test
+    public void shouldBeSnakePosition() {
+	// Given
+	// Initial snake body positions are:
+	// Position(25, 25, NORTH), Position(25, 26, NORTH)
+	// Position(25, 27, NORTH), Position(25, 28, NORTH)
+
+	// When
+	boolean result = snake.isSnakePosition(25, 25);
+
+	// Then
+	assertTrue(result);
+    }
+
+    @Test
+    public void shouldNotBeSnakePosition() {
+	// Given
+	// Initial snake body positions are:
+	// Position(25, 25, NORTH), Position(25, 26, NORTH)
+	// Position(25, 27, NORTH), Position(25, 28, NORTH)
+
+	// When
+	boolean result = snake.isSnakePosition(2, 2);
+
+	// Then
+	assertFalse(result);
+    }
+
+    @Test
+    public void shouldBeAliveAtBeginning() {
+	// When
+	// snake has been created
+
+	// Then
+	assertTrue(snake.isSnakeAlive());
+    }
+
+    @Test
+    public void shouldHaveReachedFruit() throws InvalidSnakePositionException {
+	// Given
+	Position pos = new Position(25, 25);
+	Fruit fruit = new Fruit(snake, pos);
+
+	// When
+	boolean result = snake.snakeReachedFruit(fruit);
+
+	// Then
+	assertTrue(result);
     }
 }

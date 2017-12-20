@@ -7,10 +7,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Fruit {
 
     private Position pos;
-    private Snake snake;
+    private final Snake snake;
 
     public Fruit(Snake snake) {
 	this.snake = snake;
+    }
+
+    public Fruit(Snake snake, Position pos) {
+	this.snake = snake;
+	this.pos = pos;
     }
 
     /**
@@ -27,7 +32,6 @@ public class Fruit {
 	} else {
 	    try {
 		pos = new Position(x, y, NORTH);
-		// pos.printPos();
 	    } catch (InvalidSnakePositionException e) {
 		e.printStackTrace();
 	    }

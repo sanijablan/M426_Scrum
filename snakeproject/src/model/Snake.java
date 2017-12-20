@@ -7,7 +7,7 @@ import java.util.LinkedList;
 public class Snake {
 
     private LinkedList<Position> snakebody;
-    private int fieldsize;
+    private final int fieldsize;
     private boolean snakeAlive = true;
 
     /**
@@ -77,7 +77,7 @@ public class Snake {
      * @param fruit The Fruit that is available
      * @return true, if the snake head touched the fruit
      */
-    public boolean hasTouchedFruit(Fruit fruit) {
+    public boolean snakeReachedFruit(Fruit fruit) {
 	int headX = snakebody.getFirst().getX();
 	int headY = snakebody.getFirst().getY();
 	return fruit.isFruitPosition(headX, headY);

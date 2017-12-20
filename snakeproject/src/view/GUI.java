@@ -114,7 +114,7 @@ public class GUI extends Application {
 	    @Override
 	    public void handle(Event event) {
 		snake.move();
-		if (snake.hasTouchedFruit(fruit)) {
+		if (snake.snakeReachedFruit(fruit)) {
 		    snake.eatFruit();
 		    fruit.generateRandomPosition();
 		    timeline.setRate(timeline.getCurrentRate() + increment);
