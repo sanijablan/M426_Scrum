@@ -145,12 +145,18 @@ public class Snake {
 	Position head = snakebody.getFirst();
 	for (int i = 1; i < snakebody.size(); i++) {
 	    if (snakebody.get(i).equals(head)) {
+		snakeAlive = false;
 		return true;
 	    }
 	}
 	return false;
     }
 
+    /**
+     * Checks if the snake is still alive. Snake must not run out of field or over itself to be alive
+     * 
+     * @return true if the snake ran out of the field or ran over itself
+     */
     public boolean isGameOver() {
 	return snakeRanOutOfField() || snakeRanOverItself();
     }
