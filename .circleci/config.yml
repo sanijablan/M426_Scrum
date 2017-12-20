@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     
-    working_directory: ~/circleci-demo-java-spring
+    working_directory: ~/M426_Scrum
 
     docker:
       - image: circleci/openjdk:8-jdk-browsers
@@ -12,14 +12,14 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
+          key: M426_Scrum-{{ checksum "pom.xml" }}
       
       - run: mvn dependency:go-offline
       
       - save_cache:
           paths:
             - ~/.m2
-          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
+          key: M426_Scrum-{{ checksum "pom.xml" }}
       
       - run: mvn package
       
@@ -27,4 +27,4 @@ jobs:
           path: target/surefire-reports
       
       - store_artifacts:
-          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
+          path: target/M426_Scrum-0.0.1-SNAPSHOT.jar
