@@ -13,6 +13,9 @@ public class Fruit {
 	this.snake = snake;
     }
 
+    /**
+     * Generates a random Position for the fruit.
+     */
     public void generateRandomPosition() {
 	int min = 0;
 	int max = snake.getFieldsize() - 1;
@@ -39,6 +42,13 @@ public class Fruit {
 	return pos.getY();
     }
 
+    /**
+     * Determines whether a fruit is set on the given position.
+     * 
+     * @param x The x value of the position
+     * @param y The y value of the position
+     * @return true if the fruit has this position, false otherwise
+     */
     public boolean isFruitPosition(int x, int y) {
 	if (pos != null) {
 	    return pos.getX() == x && pos.getY() == y;

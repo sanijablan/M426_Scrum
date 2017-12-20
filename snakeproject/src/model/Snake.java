@@ -10,6 +10,11 @@ public class Snake {
     private int fieldsize;
     private boolean snakeAlive = true;
 
+    /**
+     * Creates a snake that can crawl in a fixed sized field of size max.
+     * 
+     * @param max The maximum field size in which the snake can crawl
+     */
     public Snake(int max) {
 	snakebody = new LinkedList<>();
 	fieldsize = max;
@@ -36,7 +41,7 @@ public class Snake {
     }
 
     /**
-     * Gets the length of the snake body
+     * Gets the length of the snake body.
      * 
      * @return The length of the snake
      */
@@ -49,7 +54,7 @@ public class Snake {
     }
 
     /**
-     * Checks whether the snake has a body element at this position
+     * Checks whether the snake has a body element at this position.
      * 
      * @param x The row value
      * @param y The column value
@@ -67,7 +72,7 @@ public class Snake {
     }
 
     /**
-     * Checks whether the snake head has the same position as a fruit
+     * Checks whether the snake head has the same position as a fruit.
      * 
      * @param fruit The Fruit that is available
      * @return true, if the snake head touched the fruit
@@ -79,8 +84,7 @@ public class Snake {
     }
 
     /**
-     * Adds a body element to the snakebody with the same direction as the last
-     * element
+     * Adds a body element to the snakebody with the same direction as the last element.
      */
     public void eatFruit() {
 	try {
@@ -94,8 +98,8 @@ public class Snake {
     }
 
     /**
-     * Snake moves one position in the direction the head is pointing to The
-     * last element is removed and a new head element is generated
+     * Snake moves one position in the direction the head is pointing to The last element is removed and a new head
+     * element is generated.
      */
     public void move() {
 	if (snakeAlive) {
@@ -106,7 +110,7 @@ public class Snake {
     }
 
     /**
-     * Changes the direction the snake is facing
+     * Changes the direction the snake is facing.
      * 
      * @param dir The direction the snake should go
      */
@@ -118,10 +122,9 @@ public class Snake {
     }
 
     /**
-     * Checks if the snake is still in the valid borders of the field
+     * Checks if the snake is still in the valid borders of the field.
      * 
-     * @param fieldsize The size of the quadratic field in which the snake can
-     * crawl
+     * @param fieldsize The size of the quadratic field in which the snake can crawl
      * @return true, if snake run out of the field
      */
     private boolean snakeRanOutOfField() {
@@ -153,8 +156,7 @@ public class Snake {
     }
 
     /**
-     * Updates a given Position of the snake according to the direction it is
-     * going
+     * Updates a given Position of the snake according to the direction it is going.
      * 
      * @param pos The actual Position to be updated
      */
@@ -181,8 +183,9 @@ public class Snake {
 	case EAST:
 	    newPos.increaseRow();
 	    break;
+	default:
+	    break;
 	}
 	return newPos;
     }
-
 }

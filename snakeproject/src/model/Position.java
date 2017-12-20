@@ -10,6 +10,14 @@ public class Position {
      */
     private Direction direction;
 
+    /**
+     * Constructor to make a position.
+     * 
+     * @param row The row or x value of the position
+     * @param col The col or y value of the position
+     * @param direction The direction of the position
+     * @throws InvalidSnakePositionException
+     */
     public Position(int row, int col, Direction direction) throws InvalidSnakePositionException {
 	if (row >= 0 && col >= 0) {
 	    this.row = row;
@@ -66,7 +74,7 @@ public class Position {
 	if (!(o instanceof Position)) {
 	    return false;
 	}
-	Position oPos = (Position) o;
-	return oPos.getX() == row && oPos.getY() == col;
+	Position pos = (Position) o;
+	return pos.getX() == row && pos.getY() == col;
     }
 }
