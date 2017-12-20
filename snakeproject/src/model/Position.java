@@ -16,7 +16,7 @@ public class Position {
      * @param row The row or x value of the position
      * @param col The col or y value of the position
      * @param direction The direction of the position
-     * @throws InvalidSnakePositionException
+     * @throws InvalidSnakePositionException when row or col are negative
      */
     public Position(int row, int col, Direction direction) throws InvalidSnakePositionException {
 	if (row >= 0 && col >= 0) {

@@ -3,8 +3,6 @@ package view;
 import static view.CellStatus.BOARD;
 import static view.CellStatus.FRUIT;
 import static view.CellStatus.SNAKE;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 public class CellButton extends Button {
@@ -26,13 +24,6 @@ public class CellButton extends Button {
 	setMinSize(MAXSIZE, MAXSIZE);
 	cellStatus = BOARD;
 	setStyle(boardColor);
-
-	setOnAction(new EventHandler<ActionEvent>() {
-	    @Override
-	    public void handle(ActionEvent event) {
-		// button does nothing
-	    }
-	});
     }
 
     public CellStatus getStatus() {
