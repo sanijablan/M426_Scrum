@@ -38,7 +38,8 @@ import model.Snake;
 public class GUI extends Application {
 
     private Button btnPlay;
-    private Button btnReset;
+    private Button btnPause;
+    private boolean paused;
 
     private HBox buttonBox;
     private GridPane gamePane;
@@ -66,14 +67,14 @@ public class GUI extends Application {
 
 	primaryStage.setScene(new Scene(root));
 
-	btnPlay = new Button("Play");
-	btnReset = new Button("Reset");
+	btnPlay = new Button("Start");
+	btnPause = new Button("II");
 
 	btnPlay.setMinWidth(60);
-	btnReset.setMinWidth(60);
+	btnPause.setMinWidth(60);
 
 	buttonBox = new HBox(3.0);
-	buttonBox.getChildren().addAll(btnPlay, btnReset);
+	buttonBox.getChildren().addAll(btnPlay, btnPause);
 
 	btnPlay.setOnAction(event -> {
 	    if (!hasGameStarted) {
@@ -82,8 +83,17 @@ public class GUI extends Application {
 	    }
 	});
 
-	btnReset.setOnAction(event -> {
-	    timeline.pause();
+	btnPause.setOnAction(event -> {
+	    if (paused == false) {
+	        timeline.pause();
+		paused = true;
+		btnPause.setText(">");
+	    } else {
+		timeline.play();
+		btnPause.setText("II");
+		paused = false;
+	    }
+	   
 	});
 
 	root.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -110,6 +120,7 @@ public class GUI extends Application {
 
     private void startSnakeGame() {
 	hasGameStarted = true;
+	paused = false;
 	timeline = new Timeline(new KeyFrame(Duration.ZERO, new EventHandler() {
 	    @Override
 	    public void handle(Event event) {
@@ -118,7 +129,6 @@ public class GUI extends Application {
 		    snake.eatFruit();
 		    fruit.generateRandomPosition();
 		    timeline.setRate(timeline.getCurrentRate() + increment);
-		    System.out.println(timeline.getCurrentRate());
 		}
 		if (snake.isGameOver()) {
 		    timeline.stop();
