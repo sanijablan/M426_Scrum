@@ -9,7 +9,7 @@ public class Snake {
 	private LinkedList<Position> snakebody;
 	private final int fieldsize;
 	private boolean snakeAlive = true;
-	private int actScore;
+	private int score;
 
 	/**
 	 * Creates a snake that can crawl in a fixed sized field of size max.
@@ -20,7 +20,7 @@ public class Snake {
 	public Snake(int max) {
 		snakebody = new LinkedList<>();
 		fieldsize = max;
-		actScore = 0;
+		score = 0;
 
 		int posX = max / 2;
 		int posY = posX;
@@ -99,7 +99,7 @@ public class Snake {
 			Direction dir = lastPos.getDirection();
 			Position pos = new Position(lastPos.getX(), lastPos.getY(), dir);
 			snakebody.add(pos);
-			actScore++;
+			score++;
 		} catch (InvalidSnakePositionException e) {
 			e.printStackTrace();
 		}
@@ -207,8 +207,8 @@ public class Snake {
 		return newPos;
 	}
 
-	public int getActScore() {
-		return actScore;
+	public int getScore() {
+		return score;
 	}
 
 }

@@ -75,7 +75,7 @@ public class GUI extends Application {
 
 		primaryStage.setScene(new Scene(root));
 
-		score = snake.getActScore();
+		score = snake.getScore();
 		descScore = new Label("Score: ");
 		descScore.setMinWidth(60);
 		descScore.setMinHeight(20);
@@ -150,7 +150,7 @@ public class GUI extends Application {
 				snake.move();
 				if (snake.snakeReachedFruit(fruit)) {
 					snake.eatFruit();
-					score = snake.getActScore();
+					score = snake.getScore();
 					textScore.setText(Integer.toString(score));
 					fruit.generateRandomPosition();
 					timeline.setRate(timeline.getCurrentRate() + increment);
@@ -195,7 +195,7 @@ public class GUI extends Application {
 					restart.setOnAction((ActionEvent e) -> {
 						gameOverStage.close();
 						snake = new Snake(gridSize);
-						score = snake.getActScore();
+						score = snake.getScore();
 						textScore.setText(Integer.toString(score));
 						pressedDir = NORTH;
 						fruit.generateRandomPosition();
