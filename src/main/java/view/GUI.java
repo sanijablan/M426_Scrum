@@ -43,6 +43,9 @@ public class GUI extends Application {
 	private Button btnPause;
 	private boolean paused;
 
+	private String btnPlayStart = "Start";
+	private String btnPlayRestart = "Restart";
+
 	private HBox buttonBox;
 	private HBox scoreBox;
 	private GridPane gamePane;
@@ -84,7 +87,7 @@ public class GUI extends Application {
 		textScore.setMinWidth(60);
 		textScore.setMinHeight(20);
 
-		btnPlay = new Button("Start");
+		btnPlay = new Button(btnPlayStart);
 		btnPause = new Button("II");
 
 		btnPlay.setMinWidth(60);
@@ -107,6 +110,10 @@ public class GUI extends Application {
 
 				startSnakeGame();
 			}
+			if (paused) {
+				restartGame();
+				btnPlay.setText(btnPlayStart);
+			}
 		});
 
 		btnPause.setOnAction(event -> {
@@ -114,6 +121,7 @@ public class GUI extends Application {
 				timeline.pause();
 				paused = true;
 				btnPause.setText(">");
+				btnPlay.setText(btnPlayRestart);
 			} else {
 				timeline.play();
 				btnPause.setText("II");
@@ -200,12 +208,7 @@ public class GUI extends Application {
 					// New Game
 					restart.setOnAction((ActionEvent e) -> {
 						gameOverStage.close();
-						snake = new Snake(gridSize);
-						score = snake.getScore();
-						textScore.setText(Integer.toString(score));
-						pressedDir = NORTH;
-						fruit.generateRandomPosition();
-						startSnakeGame();
+						restartGame();
 					});
 
 				}
@@ -217,6 +220,15 @@ public class GUI extends Application {
 			timeline.setCycleCount(Timeline.INDEFINITE);
 			timeline.play();
 		}
+	}
+
+	private void restartGame() {
+		snake = new Snake(gridSize);
+		score = snake.getScore();
+		textScore.setText(Integer.toString(score));
+		pressedDir = NORTH;
+		fruit.generateRandomPosition();
+		startSnakeGame();
 	}
 
 	private int calcIndex(int row, int col) {
