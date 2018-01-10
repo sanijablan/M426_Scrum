@@ -43,6 +43,7 @@ public class GUI extends Application {
     private boolean paused;
 
     private HBox buttonBox;
+    private HBox scoreBox;
     private GridPane gamePane;
 
     private final int gridSize = 30;
@@ -54,6 +55,10 @@ public class GUI extends Application {
 
     private double speed = 250;
     private double increment = 0.1;
+    
+    private Label descScore;
+    private Label textScore;
+    private int score;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -69,12 +74,24 @@ public class GUI extends Application {
 
 	primaryStage.setScene(new Scene(root));
 
+	score = snake.getActScore();
+	descScore = new Label("Score: ");
+	descScore.setMinWidth(60);
+	descScore.setMinHeight(20);
+	textScore = new Label();
+	textScore.setText(Integer.toString(score));
+	textScore.setMinWidth(60);
+	textScore.setMinHeight(20);
+	
 	btnPlay = new Button("Start");
 	btnPause = new Button("II");
 
 	btnPlay.setMinWidth(60);
 	btnPause.setMinWidth(60);
 
+	scoreBox = new HBox(3.0);
+	scoreBox.getChildren().addAll(descScore, textScore);
+	
 	buttonBox = new HBox(3.0);
 	buttonBox.getChildren().addAll(btnPlay, btnPause);
 
@@ -120,7 +137,7 @@ public class GUI extends Application {
 	    }
 	});
 
-	root.getChildren().addAll(gamePane, buttonBox);
+	root.getChildren().addAll(scoreBox, gamePane, buttonBox);
 	primaryStage.show();
     }
 
@@ -136,6 +153,8 @@ public class GUI extends Application {
 		snake.move();
 		if (snake.snakeReachedFruit(fruit)) {
 		    snake.eatFruit();
+		    score = snake.getActScore();
+		    textScore.setText(Integer.toString(score));
 		    fruit.generateRandomPosition();
 		    timeline.setRate(timeline.getCurrentRate() + increment);
 		}
@@ -227,4 +246,5 @@ public class GUI extends Application {
 	}
 	System.out.println("end");
     }
+    
 }
