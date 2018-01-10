@@ -8,53 +8,53 @@ import org.junit.Test;
 
 public class FruitTest {
 
-    private Snake snake;
-    private Fruit fruit;
+	private Snake snake;
+	private Fruit fruit;
 
-    @Before
-    public void setUp() throws Exception {
-	snake = new Snake(2);
-	fruit = new Fruit(snake);
-    }
+	@Before
+	public void setUp() throws Exception {
+		snake = new Snake(2);
+		fruit = new Fruit(snake, 1);
+	}
 
-    @Test
-    public void shouldCreateFruitWithPosition() {
-	// When
-	fruit.generateRandomPosition();
+	@Test
+	public void shouldCreateFruitWithPosition() {
+		// When
+		fruit.generateRandomPosition();
 
-	// Then
-	assertFalse(snake.isSnakePosition(fruit.getX(), fruit.getY()));
+		// Then
+		assertFalse(snake.isSnakePosition(fruit.getX(), fruit.getY()));
 
-    }
+	}
 
-    @Test
-    public void shouldBeFruitPosition() {
-	// Given
-	fruit.generateRandomPosition();
-	int x = fruit.getX();
-	int y = fruit.getY();
+	@Test
+	public void shouldBeFruitPosition() {
+		// Given
+		fruit.generateRandomPosition();
+		int x = fruit.getX();
+		int y = fruit.getY();
 
-	// When
-	boolean result = fruit.isFruitPosition(x, y);
+		// When
+		boolean result = fruit.isFruitPosition(x, y);
 
-	// Then
-	assertTrue(result);
+		// Then
+		assertTrue(result);
 
-    }
+	}
 
-    @Test
-    public void shouldNotBeFruitPosition() {
-	// Given
-	fruit.generateRandomPosition();
-	int x = fruit.getX() + 1;
-	int y = fruit.getY() + 1;
+	@Test
+	public void shouldNotBeFruitPosition() {
+		// Given
+		fruit.generateRandomPosition();
+		int x = fruit.getX() + 1;
+		int y = fruit.getY() + 1;
 
-	// When
-	boolean result = fruit.isFruitPosition(x, y);
+		// When
+		boolean result = fruit.isFruitPosition(x, y);
 
-	// Then
-	assertFalse(result);
+		// Then
+		assertFalse(result);
 
-    }
+	}
 
 }

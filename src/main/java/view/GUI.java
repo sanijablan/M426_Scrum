@@ -36,7 +36,7 @@ import model.Direction;
 import model.Fruit;
 import model.Snake;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
+@SuppressWarnings({ "unchecked", "rawtypes", "restriction" })
 public class GUI extends Application {
 
 	private Button btnPlay;
@@ -66,7 +66,7 @@ public class GUI extends Application {
 
 		primaryStage.setTitle("Snake");
 		snake = new Snake(gridSize);
-		fruit = new Fruit(snake);
+		fruit = new Fruit(snake, 1);
 
 		FlowPane root = new FlowPane(10, 10);
 		root.setAlignment(Pos.BOTTOM_CENTER);

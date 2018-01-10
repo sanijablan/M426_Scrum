@@ -11,120 +11,121 @@ import org.junit.Test;
 
 public class SnakeTest {
 
-    private Snake snake;
+	private Snake snake;
 
-    @Before
-    public void setUp() throws Exception {
-	snake = new Snake(50);
-    }
+	@Before
+	public void setUp() throws Exception {
+		snake = new Snake(50);
+	}
 
-    @Test
-    public void shouldIncreaseWhenEatingFruit() {
-	// Given
-	int initialSize = snake.getSnakeSize();
+	@Test
+	public void shouldIncreaseWhenEatingFruit() {
+		// Given
+		int initialSize = snake.getSnakeSize();
 
-	// When
-	snake.eatFruit();
+		// When
+		snake.eatFruit();
 
-	// Then
-	assertEquals(initialSize + 1, snake.getSnakeSize());
-	assertEquals(snake.getSnakebody().get(initialSize).getDirection(), snake.getSnakebody().getLast().getDirection());
+		// Then
+		assertEquals(initialSize + 1, snake.getSnakeSize());
+		assertEquals(snake.getSnakebody().get(initialSize).getDirection(), snake.getSnakebody().getLast().getDirection());
 
-    }
+	}
 
-    @Test
-    public void shouldMove() {
-	// Given
-	// Initial snake body positions are:
-	// Position(25, 25, NORTH), Position(25, 26, NORTH)
-	// Position(25, 27, NORTH), Position(25, 28, NORTH)
+	@Test
+	public void shouldMove() {
+		// Given
+		// Initial snake body positions are:
+		// Position(25, 25, NORTH), Position(25, 26, NORTH)
+		// Position(25, 27, NORTH), Position(25, 28, NORTH)
 
-	// When
-	snake.move();
+		// When
+		snake.move();
 
-	// Then
-	LinkedList<Position> body = snake.getSnakebody();
-	assertEquals(4, snake.getSnakeSize());
-	assertEquals(25, body.getFirst().getX());
-	assertEquals(24, body.getFirst().getY());
+		// Then
+		LinkedList<Position> body = snake.getSnakebody();
+		assertEquals(4, snake.getSnakeSize());
+		assertEquals(25, body.getFirst().getX());
+		assertEquals(24, body.getFirst().getY());
 
-	assertEquals(25, body.getLast().getX());
-	assertEquals(27, body.getLast().getY());
-    }
+		assertEquals(25, body.getLast().getX());
+		assertEquals(27, body.getLast().getY());
+	}
 
-    @Test
-    public void shouldChangeDirection() {
-	// Given
-	// Snake is facing direction NORTH
+	@Test
+	public void shouldChangeDirection() {
+		// Given
+		// Snake is facing direction NORTH
 
-	// When
-	snake.setNewDirection(Direction.EAST);
+		// When
+		snake.setNewDirection(Direction.EAST);
 
-	// Then
-	assertEquals(Direction.EAST, snake.getSnakebody().getFirst().getDirection());
+		// Then
+		assertEquals(Direction.EAST, snake.getSnakebody().getFirst().getDirection());
 
-    }
+	}
 
-    @Test
-    public void shouldNotChangeDirection() {
-	// Given
-	// Snake is facing direction NORTH
+	@Test
+	public void shouldNotChangeDirection() {
+		// Given
+		// Snake is facing direction NORTH
 
-	// When
-	snake.setNewDirection(Direction.SOUTH);
+		// When
+		snake.setNewDirection(Direction.SOUTH);
 
-	// Then
-	assertEquals(Direction.NORTH, snake.getSnakebody().getFirst().getDirection());
+		// Then
+		assertEquals(Direction.NORTH, snake.getSnakebody().getFirst().getDirection());
 
-    }
+	}
 
-    @Test
-    public void shouldBeSnakePosition() {
-	// Given
-	// Initial snake body positions are:
-	// Position(25, 25, NORTH), Position(25, 26, NORTH)
-	// Position(25, 27, NORTH), Position(25, 28, NORTH)
+	@Test
+	public void shouldBeSnakePosition() {
+		// Given
+		// Initial snake body positions are:
+		// Position(25, 25, NORTH), Position(25, 26, NORTH)
+		// Position(25, 27, NORTH), Position(25, 28, NORTH)
 
-	// When
-	boolean result = snake.isSnakePosition(25, 25);
+		// When
+		boolean result = snake.isSnakePosition(25, 25);
 
-	// Then
-	assertTrue(result);
-    }
+		// Then
+		assertTrue(result);
+	}
 
-    @Test
-    public void shouldNotBeSnakePosition() {
-	// Given
-	// Initial snake body positions are:
-	// Position(25, 25, NORTH), Position(25, 26, NORTH)
-	// Position(25, 27, NORTH), Position(25, 28, NORTH)
+	@Test
+	public void shouldNotBeSnakePosition() {
+		// Given
+		// Initial snake body positions are:
+		// Position(25, 25, NORTH), Position(25, 26, NORTH)
+		// Position(25, 27, NORTH), Position(25, 28, NORTH)
 
-	// When
-	boolean result = snake.isSnakePosition(2, 2);
+		// When
+		boolean result = snake.isSnakePosition(2, 2);
 
-	// Then
-	assertFalse(result);
-    }
+		// Then
+		assertFalse(result);
+	}
 
-    @Test
-    public void shouldBeAliveAtBeginning() {
-	// When
-	// snake has been created
+	@Test
+	public void shouldBeAliveAtBeginning() {
+		// When
+		// snake has been created
 
-	// Then
-	assertTrue(snake.isSnakeAlive());
-    }
+		// Then
+		assertTrue(snake.isSnakeAlive());
+	}
 
-    @Test
-    public void shouldHaveReachedFruit() throws InvalidSnakePositionException {
-	// Given
-	Position pos = new Position(25, 25);
-	Fruit fruit = new Fruit(snake, pos);
+	@Test
+	public void shouldHaveReachedFruit() throws InvalidSnakePositionException {
+		// Given
+		Position pos = new Position(25, 25);
+		Fruit fruit = new Fruit(snake, pos, 1);
 
-	// When
-	boolean result = snake.snakeReachedFruit(fruit);
+		// When
+		boolean result = snake.snakeReachedFruit(fruit);
 
-	// Then
-	assertTrue(result);
-    }
+		// Then
+		assertTrue(result);
+	}
+
 }
