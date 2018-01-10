@@ -66,7 +66,7 @@ public class GUI extends Application {
 
 		primaryStage.setTitle("Snake");
 		snake = new Snake(gridSize);
-		fruit = new Fruit(snake, 1);
+		fruit = new Fruit(snake);
 
 		FlowPane root = new FlowPane(10, 10);
 		root.setAlignment(Pos.BOTTOM_CENTER);
@@ -99,6 +99,12 @@ public class GUI extends Application {
 		btnPlay.setOnAction(event -> {
 			if (!hasGameStarted) {
 				fruit.generateRandomPosition();
+
+				if (snake.getScore() % 5 == 0) {
+					// TODO
+				} else {
+				}
+
 				startSnakeGame();
 			}
 		});

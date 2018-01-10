@@ -119,7 +119,7 @@ public class SnakeTest {
 	public void shouldHaveReachedFruit() throws InvalidSnakePositionException {
 		// Given
 		Position pos = new Position(25, 25);
-		Fruit fruit = new Fruit(snake, pos, 1);
+		Fruit fruit = new Fruit(snake, pos);
 
 		// When
 		boolean result = snake.snakeReachedFruit(fruit);

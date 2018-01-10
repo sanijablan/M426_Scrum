@@ -8,17 +8,14 @@ public class Fruit {
 
 	private Position pos;
 	private final Snake snake;
-	private int value;
 
-	public Fruit(Snake snake, int value) {
+	public Fruit(Snake snake) {
 		this.snake = snake;
-		this.value = value;
 	}
 
-	public Fruit(Snake snake, Position pos, int value) {
+	public Fruit(Snake snake, Position pos) {
 		this.snake = snake;
 		this.pos = pos;
-		this.value = value;
 	}
 
 	/**
