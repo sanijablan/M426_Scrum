@@ -128,4 +128,27 @@ public class SnakeTest {
 		assertTrue(result);
 	}
 
+	@Test
+	public void shouldHaveCorrectScore() {
+		// When
+		snake.eatFruit();
+
+		// Then
+		assertEquals(1, snake.getScore());
+	}
+
+	@Test
+	public void shouldHaveCorrectScoreAfterSeveralFruits() {
+		// Given
+		int amountOfFruits = 5;
+
+		// When
+		for (int i = 0; i < amountOfFruits; i++) {
+			snake.eatFruit();
+		}
+
+		// Then
+		assertEquals(amountOfFruits, snake.getScore());
+	}
+
 }
