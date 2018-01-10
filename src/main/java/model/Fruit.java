@@ -8,14 +8,17 @@ public class Fruit {
 
 	private Position pos;
 	private final Snake snake;
+	private int value;
 
-	public Fruit(Snake snake) {
+	public Fruit(Snake snake, int value) {
 		this.snake = snake;
+		this.value = value;
 	}
 
-	public Fruit(Snake snake, Position pos) {
+	public Fruit(Snake snake, Position pos, int value) {
 		this.snake = snake;
 		this.pos = pos;
+		this.value = value;
 	}
 
 	/**
@@ -60,5 +63,13 @@ public class Fruit {
 			return pos.getX() == x && pos.getY() == y;
 		}
 		return false;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+	public int getValue() {
+		return value;
 	}
 }

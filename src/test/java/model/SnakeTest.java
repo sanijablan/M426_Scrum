@@ -24,7 +24,7 @@ public class SnakeTest {
 		int initialSize = snake.getSnakeSize();
 
 		// When
-		snake.eatFruit();
+		snake.eatFruit(new Fruit(snake, 1));
 
 		// Then
 		assertEquals(initialSize + 1, snake.getSnakeSize());
@@ -119,7 +119,7 @@ public class SnakeTest {
 	public void shouldHaveReachedFruit() throws InvalidSnakePositionException {
 		// Given
 		Position pos = new Position(25, 25);
-		Fruit fruit = new Fruit(snake, pos);
+		Fruit fruit = new Fruit(snake, pos, 1);
 
 		// When
 		boolean result = snake.snakeReachedFruit(fruit);
@@ -131,7 +131,7 @@ public class SnakeTest {
 	@Test
 	public void shouldHaveCorrectScore() {
 		// When
-		snake.eatFruit();
+		snake.eatFruit(new Fruit(snake, 1));
 
 		// Then
 		assertEquals(1, snake.getScore());
@@ -144,11 +144,10 @@ public class SnakeTest {
 
 		// When
 		for (int i = 0; i < amountOfFruits; i++) {
-			snake.eatFruit();
+			snake.eatFruit(new Fruit(snake, 1));
 		}
 
 		// Then
 		assertEquals(amountOfFruits, snake.getScore());
 	}
-
 }

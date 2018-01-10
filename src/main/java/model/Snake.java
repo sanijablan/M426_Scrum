@@ -93,13 +93,15 @@ public class Snake {
 	 * Adds a body element to the snakebody with the same direction as the last
 	 * element.
 	 */
-	public void eatFruit() {
+	public void eatFruit(Fruit fruit) {
 		try {
-			Position lastPos = snakebody.getLast();
-			Direction dir = lastPos.getDirection();
-			Position pos = new Position(lastPos.getX(), lastPos.getY(), dir);
-			snakebody.add(pos);
-			score++;
+			for (int i = 0; i < fruit.getValue(); i++) {
+				Position lastPos = snakebody.getLast();
+				Direction dir = lastPos.getDirection();
+				Position pos = new Position(lastPos.getX(), lastPos.getY(), dir);
+				snakebody.add(pos);
+				score++;
+			}
 		} catch (InvalidSnakePositionException e) {
 			e.printStackTrace();
 		}

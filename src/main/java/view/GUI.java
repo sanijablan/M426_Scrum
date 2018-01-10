@@ -56,6 +56,7 @@ public class GUI extends Application {
 	private Snake snake;
 	private boolean hasGameStarted = false;
 	private Fruit fruit;
+	private int specialFruitValue = 3;
 
 	private double speed = 250;
 	private double increment = 0.1;
@@ -69,7 +70,7 @@ public class GUI extends Application {
 
 		primaryStage.setTitle("Snake");
 		snake = new Snake(gridSize);
-		fruit = new Fruit(snake);
+		fruit = new Fruit(snake, 1);
 
 		FlowPane root = new FlowPane(10, 10);
 		root.setAlignment(Pos.BOTTOM_CENTER);
@@ -102,12 +103,6 @@ public class GUI extends Application {
 		btnPlay.setOnAction(event -> {
 			if (!hasGameStarted) {
 				fruit.generateRandomPosition();
-
-				if (snake.getScore() % 5 == 0) {
-					// TODO
-				} else {
-				}
-
 				startSnakeGame();
 			}
 			if (paused) {
@@ -163,10 +158,17 @@ public class GUI extends Application {
 				}
 				snake.move();
 				if (snake.snakeReachedFruit(fruit)) {
-					snake.eatFruit();
+					snake.eatFruit(fruit);
 					score = snake.getScore();
 					textScore.setText(Integer.toString(score));
 					fruit.generateRandomPosition();
+
+					// If the player has eaten 5 fruits, the next fruit is a special fruit
+					if (snake.getScore() % 7 == 0 && snake.getScore() != 0) {
+						fruit.setValue(specialFruitValue);
+					} else {
+						fruit.setValue(1);
+					}
 					timeline.setRate(timeline.getCurrentRate() + increment);
 				}
 				if (snake.isGameOver()) {
