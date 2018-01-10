@@ -1,9 +1,9 @@
-package snakegame;
+package snake.snake;
 
 import javafx.application.Application;
 import view.GUI;
 
-public class Main {
+public class App {
 
     public static void main(String[] args) {
 	Application.launch(GUI.class, args);
