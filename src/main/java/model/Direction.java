@@ -2,37 +2,37 @@ package model;
 
 public enum Direction {
 
-    /*
-     * Move up
-     */
-    NORTH,
+	/*
+	 * Move up
+	 */
+	NORTH,
 
-    /*
-     * Move right
-     */
-    EAST,
+	/*
+	 * Move right
+	 */
+	EAST,
 
-    /*
-     * Move down
-     */
-    SOUTH,
+	/*
+	 * Move down
+	 */
+	SOUTH,
 
-    /*
-     * Move left
-     */
-    WEST;
+	/*
+	 * Move left
+	 */
+	WEST;
 
-    private Direction opposite;
+	private Direction opposite;
 
-    static {
-	NORTH.opposite = SOUTH;
-	SOUTH.opposite = NORTH;
-	EAST.opposite = WEST;
-	WEST.opposite = EAST;
-    }
+	static {
+		NORTH.opposite = SOUTH;
+		SOUTH.opposite = NORTH;
+		EAST.opposite = WEST;
+		WEST.opposite = EAST;
+	}
 
-    public Direction getOppositeDirection() {
-	return opposite;
-    }
+	public Direction getOppositeDirection() {
+		return opposite;
+	}
 
 }

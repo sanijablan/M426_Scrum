@@ -5,8 +5,7 @@ import view.GUI;
 
 public class App {
 
-    public static void main(String[] args) {
-	Application.launch(GUI.class, args);
-    }
-
+	public static void main(String[] args) {
+		Application.launch(GUI.class, args);
+	}
 }
