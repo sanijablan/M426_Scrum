@@ -118,22 +118,18 @@ public class GUI extends Application {
 	root.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	    @Override
 	    public void handle(KeyEvent event) {
-		if (event.getCode() == KeyCode.RIGHT) {
-		    //snake.setNewDirection(EAST);
-		    pressedDir = EAST;
-		}
-		if (event.getCode() == KeyCode.LEFT) {
-		    //snake.setNewDirection(WEST);
-		    pressedDir = WEST;
-		}
-		if (event.getCode() == KeyCode.UP) {
-		    //snake.setNewDirection(NORTH);
-		    pressedDir = NORTH;
-		}
-		if (event.getCode() == KeyCode.DOWN) {
-		    //snake.setNewDirection(SOUTH);
-		    pressedDir = SOUTH;
-		}
+			if (event.getCode() == KeyCode.RIGHT) {
+			    pressedDir = EAST;
+			}
+			if (event.getCode() == KeyCode.LEFT) {
+			    pressedDir = WEST;
+			}
+			if (event.getCode() == KeyCode.UP) {
+			    pressedDir = NORTH;
+			}
+			if (event.getCode() == KeyCode.DOWN) {
+			    pressedDir = SOUTH;
+			}
 	    }
 	});
 
@@ -160,33 +156,51 @@ public class GUI extends Application {
 		}
 		if (snake.isGameOver()) {
 		    timeline.stop();
-		    Stage secondaryStage = new Stage();
-		    secondaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent we) {
-			    Platform.exit();
-			    System.exit(0);
-			}
+		    Stage gameOverStage = new Stage();
+		    gameOverStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				@Override
+				public void handle(WindowEvent we) {
+				    Platform.exit();
+				    System.exit(0);
+				}
 		    });
-		    BorderPane gameover = new BorderPane();
-		    gameover.setPrefHeight(500);
-		    gameover.setPrefWidth(500);
-		    Label go = new Label("Game Over!");
-		    go.setTextFill(Color.BLACK);
-		    go.setFont(Font.font("Courier New", FontWeight.BOLD, 60));
-		    gameover.setCenter(go);
-		    Button quit = new Button("Game Over!");
-		    gameover.setPadding(new Insets(0, 0, 10, 0));
-		    gameover.setBottom(quit);
-		    BorderPane.setAlignment(quit, Pos.BOTTOM_CENTER);
+		    BorderPane gameOverScreen = new BorderPane();
+		    gameOverScreen.setPrefHeight(500);
+		    gameOverScreen.setPrefWidth(500);
+		    Label gameOver = new Label("Game Over!");
+		    gameOver.setTextFill(Color.BLACK);
+		    gameOver.setFont(Font.font("Courier New", FontWeight.BOLD, 60));
+		    gameOverScreen.setCenter(gameOver);
+		    gameOverScreen.setPadding(new Insets(0, 0, 10, 0));
+		    
+		    Button restart = new Button("New Game");
+		    Button quit = new Button("Exit Game");
+		    HBox buttonBoxGameOver = new HBox(3.0);
+		    buttonBoxGameOver.getChildren().addAll(restart, quit);
+		    gameOverScreen.setBottom(buttonBoxGameOver);
+		    buttonBoxGameOver.setAlignment(Pos.BOTTOM_CENTER);
+		    
+		    gameOverStage.setTitle("Game Over!");
+		    gameOverStage.setScene(new Scene(gameOverScreen, 380, 200));
+		    gameOverStage.show();
+		    
+		    // Exit Game
 		    quit.setOnAction((ActionEvent e) -> {
-			Platform.exit();
-			System.exit(0);
+	    			Platform.exit();
+	    			System.exit(0);
 		    });
-		    Scene scene = new Scene(gameover, 380, 200);
-		    secondaryStage.setTitle("Game Over!");
-		    secondaryStage.setScene(scene);
-		    secondaryStage.show();
+		    
+		    // New Game
+		    restart.setOnAction((ActionEvent e) ->{
+	    			gameOverStage.close();
+	    			snake = new Snake(gridSize);		
+	    			score = snake.getActScore();
+	    		    textScore.setText(Integer.toString(score));
+	    		    pressedDir = NORTH;
+	    			fruit.generateRandomPosition();
+	    			startSnakeGame();
+		    });
+		    
 		}
 		repaintPane();
 	    }
