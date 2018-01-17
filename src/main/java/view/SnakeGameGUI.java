@@ -77,6 +77,9 @@ public class SnakeGameGUI extends Application {
 	private final double speed = 250;
 	private final double increment = 0.1;
 
+	private final Font fatFont = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25);
+	private final Font mediumFont = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15);
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
@@ -92,15 +95,17 @@ public class SnakeGameGUI extends Application {
 		scoreName = new Label("Score: ");
 		scoreName.setMinWidth(60);
 		scoreName.setMinHeight(20);
-		scoreName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+		scoreName.setFont(fatFont);
 		scoreValue = new Label();
 		scoreValue.setText(Integer.toString(snake.getScore()));
 		scoreValue.setMinWidth(60);
 		scoreValue.setMinHeight(20);
-		scoreValue.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+		scoreValue.setFont(fatFont);
 
 		btnPlay = new Button("Start");
+		btnPlay.setFont(mediumFont);
 		btnPause = new Button("II");
+		btnPause.setFont(mediumFont);
 
 		btnPlay.setMinWidth(100);
 		btnPlay.setMinHeight(60);
@@ -109,12 +114,12 @@ public class SnakeGameGUI extends Application {
 
 		scoreBox = new HBox(3.0);
 		scoreBox.getChildren().addAll(scoreName, scoreValue);
-		buttonBox.setMargin(scoreName, new Insets(10, 0, 0, 0));
-		buttonBox.setMargin(scoreValue, new Insets(10, 0, 0, 0));
+		HBox.setMargin(scoreName, new Insets(10, 0, 0, 0));
+		HBox.setMargin(scoreValue, new Insets(10, 0, 0, 0));
 
 		buttonBox = new HBox(8.0);
 		buttonBox.getChildren().addAll(btnPlay, btnPause);
-		buttonBox.setMargin(btnPlay, new Insets(0, 0, 10, 0));
+		HBox.setMargin(btnPlay, new Insets(0, 0, 10, 0));
 
 		btnPlay.setOnAction(event -> {
 			if (!hasGameStarted) {
