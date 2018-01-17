@@ -31,6 +31,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -81,22 +82,29 @@ public class GUI extends Application {
 		scoreName = new Label("Score: ");
 		scoreName.setMinWidth(60);
 		scoreName.setMinHeight(20);
+		scoreName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
 		scoreValue = new Label();
 		scoreValue.setText(Integer.toString(snake.getScore()));
 		scoreValue.setMinWidth(60);
 		scoreValue.setMinHeight(20);
+		scoreValue.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
 
 		btnPlay = new Button("Start");
 		btnPause = new Button("II");
 
-		btnPlay.setMinWidth(60);
-		btnPause.setMinWidth(60);
+		btnPlay.setMinWidth(100);
+		btnPlay.setMinHeight(60);
+		btnPause.setMinWidth(100);
+		btnPause.setMinHeight(60);
 
 		scoreBox = new HBox(3.0);
 		scoreBox.getChildren().addAll(scoreName, scoreValue);
+		buttonBox.setMargin(scoreName, new Insets(10, 0, 0, 0));
+		buttonBox.setMargin(scoreValue, new Insets(10, 0, 0, 0));
 
-		buttonBox = new HBox(3.0);
+		buttonBox = new HBox(8.0);
 		buttonBox.getChildren().addAll(btnPlay, btnPause);
+		buttonBox.setMargin(btnPlay, new Insets(0, 0, 10, 0));
 
 		btnPlay.setOnAction(event -> {
 			if (!hasGameStarted) {
@@ -216,7 +224,8 @@ public class GUI extends Application {
 		scoreValue.setText(Integer.toString(snake.getScore()));
 		fruit.generateRandomPosition();
 
-		// If the player has eaten a certain amount of fruits, the next fruit is a
+		// If the player has eaten a certain amount of fruits, the next fruit is
+		// a
 		// special fruit
 		if (snake.getFruitsEaten() % specialFruitFrequency == 0 && snake.getFruitsEaten() != 0) {
 			fruit.setValue(specialFruitValue);
