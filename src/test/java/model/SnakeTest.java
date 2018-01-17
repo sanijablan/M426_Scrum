@@ -66,19 +66,6 @@ public class SnakeTest {
 	}
 
 	@Test
-	public void shouldNotChangeDirection() {
-		// Given
-		// Snake is facing direction NORTH
-
-		// When
-		snake.setNewDirection(Direction.SOUTH);
-
-		// Then
-		assertEquals(Direction.NORTH, snake.getSnakebody().getFirst().getDirection());
-
-	}
-
-	@Test
 	public void shouldBeSnakePosition() {
 		// Given
 		// Initial snake body positions are:
