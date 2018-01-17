@@ -1,5 +1,14 @@
 package model;
 
+/**
+ * The Position allows to define a positive location on a grid Objects like
+ * {@link Snake} and {@link Fruit} have a certain position that can be
+ * represented with this class.
+ * 
+ * @author Eileen Brennwald
+ * @author Dario Haenni
+ *
+ */
 public class Position {
 
 	private int row;

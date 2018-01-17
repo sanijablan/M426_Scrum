@@ -40,8 +40,18 @@ import model.Direction;
 import model.Fruit;
 import model.Snake;
 
+/**
+ * The SnakeGameGUI creates the whole look of the Snake game. Moreover it is
+ * responsible for handling user inputs and for playing the actual game.
+ * 
+ * @author Eileen Brennwald
+ * @author Dario Haenni
+ * @author Ruben Straumann
+ * @author Sandra Jablanovic
+ *
+ */
 @SuppressWarnings({ "unchecked", "rawtypes", "restriction" })
-public class GUI extends Application {
+public class SnakeGameGUI extends Application {
 
 	private HBox buttonBox;
 	private Button btnPlay;

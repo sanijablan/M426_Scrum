@@ -4,6 +4,15 @@ import static model.Direction.NORTH;
 
 import java.util.LinkedList;
 
+/**
+ * The Snake class allows to create a snake object that can move within a
+ * certain field size and can do any actions related to the game Snake.
+ * 
+ * @author Eileen Brennwald
+ * @author Dario Haenni
+ * @author Sandra Jablanovic
+ *
+ */
 public class Snake {
 
 	private LinkedList<Position> snakebody;

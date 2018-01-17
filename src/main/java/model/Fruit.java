@@ -4,6 +4,12 @@ import static model.Direction.NORTH;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * The Fruit represents a small object that can be eaten by a {@link Snake}
+ * 
+ * @author Eileen Brennwald
+ *
+ */
 public class Fruit {
 
 	private Position pos;

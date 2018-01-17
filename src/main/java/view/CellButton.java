@@ -6,6 +6,14 @@ import static view.CellStatus.SNAKE;
 
 import javafx.scene.control.Button;
 
+/**
+ * The CellButton allows a specific representation of a button that is used to
+ * create a game pane for the Snake game.
+ * 
+ * @author Eileen Brennwald
+ * @author Dario Haenni
+ * 
+ */
 @SuppressWarnings("restriction")
 public class CellButton extends Button {
 
