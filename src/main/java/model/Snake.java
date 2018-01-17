@@ -10,6 +10,7 @@ public class Snake {
 	private final int fieldsize;
 	private boolean snakeAlive = true;
 	private int score;
+	private int fruitsEaten;
 
 	/**
 	 * Creates a snake that can crawl in a fixed sized field of size max.
@@ -101,6 +102,7 @@ public class Snake {
 				snakebody.add(pos);
 				score++;
 			}
+			fruitsEaten++;
 		} catch (InvalidSnakePositionException e) {
 			e.printStackTrace();
 		}
@@ -203,6 +205,10 @@ public class Snake {
 
 	public int getScore() {
 		return score;
+	}
+
+	public int getFruitsEaten() {
+		return fruitsEaten;
 	}
 
 }

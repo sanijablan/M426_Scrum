@@ -61,7 +61,9 @@ public class GUI extends Application {
 	private Snake snake;
 	private Fruit fruit;
 
+	private final int normalFruitValue = 1;
 	private final int specialFruitValue = 3;
+	private final int specialFruitFrequency = 5;
 	private final int gridSize = 30;
 	private final double speed = 250;
 	private final double increment = 0.1;
@@ -70,15 +72,13 @@ public class GUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		primaryStage.setTitle("Snake");
-		snake = new Snake(gridSize);
-		fruit = new Fruit(snake, 1);
-
 		FlowPane root = new FlowPane(10, 10);
 		root.setAlignment(Pos.BOTTOM_CENTER);
-
-		gamePane = createGamePane();
-
 		primaryStage.setScene(new Scene(root));
+
+		snake = new Snake(gridSize);
+		fruit = new Fruit(snake, 1);
+		gamePane = createGamePane();
 
 		scoreName = new Label("Score: ");
 		scoreName.setMinWidth(60);
@@ -128,9 +128,7 @@ public class GUI extends Application {
 		root.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
-
 				Direction currentDir = snake.getSnakebody().getFirst().getDirection();
-
 				if (event.getCode() == RIGHT && !currentDir.equals(WEST)) {
 					pressedDir = EAST;
 				}
@@ -151,6 +149,9 @@ public class GUI extends Application {
 
 	}
 
+	/**
+	 * Starts the timeline for the snake game and monitors the snake action
+	 */
 	private void startSnakeGame() {
 		hasGameStarted = true;
 		paused = false;
@@ -162,17 +163,7 @@ public class GUI extends Application {
 				}
 				snake.move();
 				if (snake.snakeReachedFruit(fruit)) {
-					snake.eatFruit(fruit);
-					scoreValue.setText(Integer.toString(snake.getScore()));
-					fruit.generateRandomPosition();
-
-					// If the player has eaten 5 fruits, the next fruit is a special fruit
-					if (snake.getScore() % 7 == 0 && snake.getScore() != 0) {
-						fruit.setValue(specialFruitValue);
-					} else {
-						fruit.setValue(1);
-					}
-					timeline.setRate(timeline.getCurrentRate() + increment);
+					snakeEatsFruit();
 				}
 				if (snake.isGameOver()) {
 					timeline.stop();
@@ -218,6 +209,21 @@ public class GUI extends Application {
 			}
 		}
 		return pane;
+	}
+
+	private void snakeEatsFruit() {
+		snake.eatFruit(fruit);
+		scoreValue.setText(Integer.toString(snake.getScore()));
+		fruit.generateRandomPosition();
+
+		// If the player has eaten a certain amount of fruits, the next fruit is a
+		// special fruit
+		if (snake.getFruitsEaten() % specialFruitFrequency == 0 && snake.getFruitsEaten() != 0) {
+			fruit.setValue(specialFruitValue);
+		} else {
+			fruit.setValue(normalFruitValue);
+		}
+		timeline.setRate(timeline.getCurrentRate() + increment);
 	}
 
 	private void restartGame() {
