@@ -78,7 +78,8 @@ public class SnakeGameGUI extends Application {
 	private final double increment = 0.1;
 
 	private final Font fatFont = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25);
-	private final Font mediumFont = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15);
+	private final Font mediumFont = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20);
+	private final Font smallFont = Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15);
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -103,7 +104,7 @@ public class SnakeGameGUI extends Application {
 		scoreValue.setFont(fatFont);
 
 		btnPlay = new Button("Start");
-		btnPlay.setFont(mediumFont);
+		btnPlay.setFont(smallFont);
 		btnPause = new Button("II");
 		btnPause.setFont(mediumFont);
 
@@ -129,6 +130,7 @@ public class SnakeGameGUI extends Application {
 			if (paused) {
 				restartGame();
 				btnPlay.setText("Start");
+				btnPause.setText("II");
 			}
 		});
 
