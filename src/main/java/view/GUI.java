@@ -128,17 +128,28 @@ public class GUI extends Application {
 		root.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
+
+				Direction currentDir = snake.getSnakebody().getFirst().getDirection();
+
 				if (event.getCode() == KeyCode.RIGHT) {
-					pressedDir = EAST;
+					if (!currentDir.equals(WEST)) {
+						pressedDir = EAST;
+					}
 				}
 				if (event.getCode() == KeyCode.LEFT) {
-					pressedDir = WEST;
+					if (!currentDir.equals(EAST)) {
+						pressedDir = WEST;
+					}
 				}
 				if (event.getCode() == KeyCode.UP) {
-					pressedDir = NORTH;
+					if (!currentDir.equals(SOUTH)) {
+						pressedDir = NORTH;
+					}
 				}
 				if (event.getCode() == KeyCode.DOWN) {
-					pressedDir = SOUTH;
+					if (!currentDir.equals(NORTH)) {
+						pressedDir = SOUTH;
+					}
 				}
 			}
 		});
