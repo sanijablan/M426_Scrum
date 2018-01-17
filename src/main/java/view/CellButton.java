@@ -6,6 +6,7 @@ import static view.CellStatus.SNAKE;
 
 import javafx.scene.control.Button;
 
+@SuppressWarnings("restriction")
 public class CellButton extends Button {
 
 	// Status is either snake (blue), fruit (red) or board (white)
@@ -34,8 +35,7 @@ public class CellButton extends Button {
 	/**
 	 * Sets the status of a cell.
 	 * 
-	 * @param status
-	 *            The status of a cell. Can be SNAKE, FRUIT or BOARD
+	 * @param status The status of a cell. Can be SNAKE, FRUIT or BOARD
 	 */
 	public void setStatus(CellStatus status) {
 		switch (status) {

@@ -14,8 +14,7 @@ public class Snake {
 	/**
 	 * Creates a snake that can crawl in a fixed sized field of size max.
 	 * 
-	 * @param max
-	 *            The maximum field size in which the snake can crawl
+	 * @param max The maximum field size in which the snake can crawl
 	 */
 	public Snake(int max) {
 		snakebody = new LinkedList<>();
@@ -59,10 +58,8 @@ public class Snake {
 	/**
 	 * Checks whether the snake has a body element at this position.
 	 * 
-	 * @param x
-	 *            The row value
-	 * @param y
-	 *            The column value
+	 * @param x The row value
+	 * @param y The column value
 	 * @return true, if position is set with a body element
 	 */
 	public boolean isSnakePosition(int x, int y) {
@@ -79,8 +76,7 @@ public class Snake {
 	/**
 	 * Checks whether the snake head has the same position as a fruit.
 	 * 
-	 * @param fruit
-	 *            The Fruit that is available
+	 * @param fruit The fruit that is available
 	 * @return true, if the snake head touched the fruit
 	 */
 	public boolean snakeReachedFruit(Fruit fruit) {
@@ -90,8 +86,11 @@ public class Snake {
 	}
 
 	/**
-	 * Adds a body element to the snakebody with the same direction as the last
-	 * element.
+	 * Performs action that is taken, when a fruit is eaten: Adding body elements to
+	 * the snakebody with the same direction as the last body element depending on
+	 * the fruit value.
+	 * 
+	 * @param fruit The fruit which the snake eats
 	 */
 	public void eatFruit(Fruit fruit) {
 		try {
@@ -108,8 +107,7 @@ public class Snake {
 	}
 
 	/**
-	 * Snake moves one position in the direction the head is pointing to The last
-	 * element is removed and a new head element is generated.
+	 * Snake moves one position in the direction the head is pointing to.
 	 */
 	public void move() {
 		if (snakeAlive) {
@@ -122,21 +120,26 @@ public class Snake {
 	/**
 	 * Changes the direction the snake is facing.
 	 * 
-	 * @param dir
-	 *            The direction the snake should go
+	 * @param dir The new direction the snake should face
 	 */
 	public void setNewDirection(Direction dir) {
-		Direction headDir = snakebody.getFirst().getDirection();
-		if (!dir.equals(headDir.getOppositeDirection())) {
-			snakebody.getFirst().setDirection(dir);
-		}
+		snakebody.getFirst().setDirection(dir);
+	}
+
+	/**
+	 * Checks if the snake is still alive and that thus the game has not yet ended.
+	 * Snake must not run out of field or over itself to be alive
+	 * 
+	 * @return true if the snake ran out of the field or ran over itself
+	 */
+	public boolean isGameOver() {
+		return snakeRanOutOfField() || snakeRanOverItself();
 	}
 
 	/**
 	 * Checks if the snake is still in the valid borders of the field.
 	 * 
-	 * @param fieldsize
-	 *            The size of the quadratic field in which the snake can crawl
+	 * @param fieldsize The size of the quadratic field in which the snake can crawl
 	 * @return true, if snake run out of the field
 	 */
 	private boolean snakeRanOutOfField() {
@@ -165,20 +168,9 @@ public class Snake {
 	}
 
 	/**
-	 * Checks if the snake is still alive. Snake must not run out of field or over
-	 * itself to be alive
-	 * 
-	 * @return true if the snake ran out of the field or ran over itself
-	 */
-	public boolean isGameOver() {
-		return snakeRanOutOfField() || snakeRanOverItself();
-	}
-
-	/**
 	 * Updates a given Position of the snake according to the direction it is going.
 	 * 
-	 * @param pos
-	 *            The actual Position to be updated
+	 * @param pos The actual Position to be updated
 	 */
 	private Position getNextPosition(Position pos) {
 		Position newPos = null;

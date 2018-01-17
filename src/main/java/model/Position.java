@@ -13,12 +13,9 @@ public class Position {
 	/**
 	 * Constructor to make a position with default direction being NORTH.
 	 * 
-	 * @param row
-	 *            The row or x value of the position
-	 * @param col
-	 *            The col or y value of the position
-	 * @throws InvalidSnakePositionException
-	 *             when row or col are negative
+	 * @param row The row or x value of the position
+	 * @param col The col or y value of the position
+	 * @throws InvalidSnakePositionException when row or col are negative
 	 */
 	public Position(int row, int col) throws InvalidSnakePositionException {
 		if (row >= 0 && col >= 0) {
@@ -33,14 +30,10 @@ public class Position {
 	/**
 	 * Constructor to make a position.
 	 * 
-	 * @param row
-	 *            The row or x value of the position
-	 * @param col
-	 *            The col or y value of the position
-	 * @param direction
-	 *            The direction of the position
-	 * @throws InvalidSnakePositionException
-	 *             when row or col are negative
+	 * @param row The row or x value of the position
+	 * @param col The col or y value of the position
+	 * @param direction The direction of the position
+	 * @throws InvalidSnakePositionException when row or col are negative
 	 */
 	public Position(int row, int col, Direction direction) throws InvalidSnakePositionException {
 		this(row, col);
@@ -51,10 +44,8 @@ public class Position {
 	/**
 	 * Creates a position out of a given position with the same values.
 	 * 
-	 * @param pos
-	 *            The position from which to take the values for a new position
-	 * @throws InvalidSnakePositionException
-	 *             when row or col are negative
+	 * @param pos The position from which to take the values for a new position
+	 * @throws InvalidSnakePositionException when row or col are negative
 	 */
 	public Position(Position pos) throws InvalidSnakePositionException {
 		this(pos.getX(), pos.getY(), pos.getDirection());

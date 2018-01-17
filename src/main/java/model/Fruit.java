@@ -52,10 +52,8 @@ public class Fruit {
 	/**
 	 * Determines whether a fruit is set on the given position.
 	 * 
-	 * @param x
-	 *            The x value of the position
-	 * @param y
-	 *            The y value of the position
+	 * @param x The x value of the position
+	 * @param y The y value of the position
 	 * @return true if the fruit has this position, false otherwise
 	 */
 	public boolean isFruitPosition(int x, int y) {

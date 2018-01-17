@@ -1,5 +1,9 @@
 package view;
 
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.LEFT;
+import static javafx.scene.input.KeyCode.RIGHT;
+import static javafx.scene.input.KeyCode.UP;
 import static model.Direction.EAST;
 import static model.Direction.NORTH;
 import static model.Direction.SOUTH;
@@ -20,7 +24,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -39,31 +42,29 @@ import model.Snake;
 @SuppressWarnings({ "unchecked", "rawtypes", "restriction" })
 public class GUI extends Application {
 
+	private HBox buttonBox;
 	private Button btnPlay;
 	private Button btnPause;
-	private boolean paused;
-
 	private String btnPlayStart = "Start";
 	private String btnPlayRestart = "Restart";
 
-	private HBox buttonBox;
 	private HBox scoreBox;
-	private GridPane gamePane;
+	private Label scoreName;
+	private Label scoreValue;
 
-	private final int gridSize = 30;
+	private GridPane gamePane;
 	private Timeline timeline = new Timeline();
 	private Direction pressedDir;
-	private Snake snake;
 	private boolean hasGameStarted = false;
+	private boolean paused;
+
+	private Snake snake;
 	private Fruit fruit;
-	private int specialFruitValue = 3;
 
-	private double speed = 250;
-	private double increment = 0.1;
-
-	private Label descScore;
-	private Label textScore;
-	private int score;
+	private final int specialFruitValue = 3;
+	private final int gridSize = 30;
+	private final double speed = 250;
+	private final double increment = 0.1;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -79,14 +80,13 @@ public class GUI extends Application {
 
 		primaryStage.setScene(new Scene(root));
 
-		score = snake.getScore();
-		descScore = new Label("Score: ");
-		descScore.setMinWidth(60);
-		descScore.setMinHeight(20);
-		textScore = new Label();
-		textScore.setText(Integer.toString(score));
-		textScore.setMinWidth(60);
-		textScore.setMinHeight(20);
+		scoreName = new Label("Score: ");
+		scoreName.setMinWidth(60);
+		scoreName.setMinHeight(20);
+		scoreValue = new Label();
+		scoreValue.setText(Integer.toString(snake.getScore()));
+		scoreValue.setMinWidth(60);
+		scoreValue.setMinHeight(20);
 
 		btnPlay = new Button(btnPlayStart);
 		btnPause = new Button("II");
@@ -95,7 +95,7 @@ public class GUI extends Application {
 		btnPause.setMinWidth(60);
 
 		scoreBox = new HBox(3.0);
-		scoreBox.getChildren().addAll(descScore, textScore);
+		scoreBox.getChildren().addAll(scoreName, scoreValue);
 
 		buttonBox = new HBox(3.0);
 		buttonBox.getChildren().addAll(btnPlay, btnPause);
@@ -131,31 +131,24 @@ public class GUI extends Application {
 
 				Direction currentDir = snake.getSnakebody().getFirst().getDirection();
 
-				if (event.getCode() == KeyCode.RIGHT) {
-					if (!currentDir.equals(WEST)) {
-						pressedDir = EAST;
-					}
+				if (event.getCode() == RIGHT && !currentDir.equals(WEST)) {
+					pressedDir = EAST;
 				}
-				if (event.getCode() == KeyCode.LEFT) {
-					if (!currentDir.equals(EAST)) {
-						pressedDir = WEST;
-					}
+				if (event.getCode() == LEFT && !currentDir.equals(EAST)) {
+					pressedDir = WEST;
 				}
-				if (event.getCode() == KeyCode.UP) {
-					if (!currentDir.equals(SOUTH)) {
-						pressedDir = NORTH;
-					}
+				if (event.getCode() == UP && !currentDir.equals(SOUTH)) {
+					pressedDir = NORTH;
 				}
-				if (event.getCode() == KeyCode.DOWN) {
-					if (!currentDir.equals(NORTH)) {
-						pressedDir = SOUTH;
-					}
+				if (event.getCode() == DOWN && !currentDir.equals(NORTH)) {
+					pressedDir = SOUTH;
 				}
 			}
 		});
 
 		root.getChildren().addAll(scoreBox, gamePane, buttonBox);
 		primaryStage.show();
+
 	}
 
 	private void startSnakeGame() {
@@ -170,8 +163,7 @@ public class GUI extends Application {
 				snake.move();
 				if (snake.snakeReachedFruit(fruit)) {
 					snake.eatFruit(fruit);
-					score = snake.getScore();
-					textScore.setText(Integer.toString(score));
+					scoreValue.setText(Integer.toString(snake.getScore()));
 					fruit.generateRandomPosition();
 
 					// If the player has eaten 5 fruits, the next fruit is a special fruit
@@ -184,46 +176,7 @@ public class GUI extends Application {
 				}
 				if (snake.isGameOver()) {
 					timeline.stop();
-					Stage gameOverStage = new Stage();
-					gameOverStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-						@Override
-						public void handle(WindowEvent we) {
-							Platform.exit();
-							System.exit(0);
-						}
-					});
-					BorderPane gameOverScreen = new BorderPane();
-					gameOverScreen.setPrefHeight(500);
-					gameOverScreen.setPrefWidth(500);
-					Label gameOver = new Label("Game Over!");
-					gameOver.setTextFill(Color.BLACK);
-					gameOver.setFont(Font.font("Courier New", FontWeight.BOLD, 60));
-					gameOverScreen.setCenter(gameOver);
-					gameOverScreen.setPadding(new Insets(0, 0, 10, 0));
-
-					Button restart = new Button("New Game");
-					Button quit = new Button("Exit Game");
-					HBox buttonBoxGameOver = new HBox(3.0);
-					buttonBoxGameOver.getChildren().addAll(restart, quit);
-					gameOverScreen.setBottom(buttonBoxGameOver);
-					buttonBoxGameOver.setAlignment(Pos.BOTTOM_CENTER);
-
-					gameOverStage.setTitle("Game Over!");
-					gameOverStage.setScene(new Scene(gameOverScreen, 380, 200));
-					gameOverStage.show();
-
-					// Exit Game
-					quit.setOnAction((ActionEvent e) -> {
-						Platform.exit();
-						System.exit(0);
-					});
-
-					// New Game
-					restart.setOnAction((ActionEvent e) -> {
-						gameOverStage.close();
-						restartGame();
-					});
-
+					createGameOverPane();
 				}
 				repaintPane();
 			}
@@ -233,15 +186,6 @@ public class GUI extends Application {
 			timeline.setCycleCount(Timeline.INDEFINITE);
 			timeline.play();
 		}
-	}
-
-	private void restartGame() {
-		snake = new Snake(gridSize);
-		score = snake.getScore();
-		textScore.setText(Integer.toString(score));
-		pressedDir = NORTH;
-		fruit.generateRandomPosition();
-		startSnakeGame();
 	}
 
 	private int calcIndex(int row, int col) {
@@ -276,21 +220,55 @@ public class GUI extends Application {
 		return pane;
 	}
 
-	/**
-	 * For testing purposes prints the game pane to System.out.
-	 */
-	private void printGamePane() {
-		for (int row = 0; row < gridSize; row++) {
-			for (int col = 0; col < gridSize; col++) {
-				if (((CellButton) gamePane.getChildren().get(calcIndex(row, col))).getStatus().equals(SNAKE)) {
-					System.out.print("s");
-				} else {
-					System.out.print("o");
-				}
+	private void restartGame() {
+		snake = new Snake(gridSize);
+		scoreValue.setText(Integer.toString(snake.getScore()));
+		pressedDir = NORTH;
+		fruit.generateRandomPosition();
+		startSnakeGame();
+	}
+
+	private void createGameOverPane() {
+		Stage gameOverStage = new Stage();
+		BorderPane gameOverScreen = new BorderPane();
+		gameOverScreen.setPrefHeight(500);
+		gameOverScreen.setPrefWidth(500);
+		Label gameOver = new Label("Game Over!");
+		gameOver.setTextFill(Color.BLACK);
+		gameOver.setFont(Font.font("Courier New", FontWeight.BOLD, 60));
+		gameOverScreen.setCenter(gameOver);
+		gameOverScreen.setPadding(new Insets(0, 0, 10, 0));
+
+		Button restart = new Button("New Game");
+		Button quit = new Button("Exit Game");
+		HBox buttonBoxGameOver = new HBox(3.0);
+		buttonBoxGameOver.getChildren().addAll(restart, quit);
+		gameOverScreen.setBottom(buttonBoxGameOver);
+		buttonBoxGameOver.setAlignment(Pos.BOTTOM_CENTER);
+
+		gameOverStage.setTitle("Game Over!");
+		gameOverStage.setScene(new Scene(gameOverScreen, 380, 200));
+		gameOverStage.show();
+
+		gameOverStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent we) {
+				Platform.exit();
+				System.exit(0);
 			}
-			System.out.println();
-		}
-		System.out.println("end");
+		});
+
+		// Exit Game
+		quit.setOnAction((ActionEvent e) -> {
+			Platform.exit();
+			System.exit(0);
+		});
+
+		// New Game
+		restart.setOnAction((ActionEvent e) -> {
+			gameOverStage.close();
+			restartGame();
+		});
 	}
 
 }
