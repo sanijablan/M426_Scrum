@@ -45,8 +45,6 @@ public class GUI extends Application {
 	private HBox buttonBox;
 	private Button btnPlay;
 	private Button btnPause;
-	private String btnPlayStart = "Start";
-	private String btnPlayRestart = "Restart";
 
 	private HBox scoreBox;
 	private Label scoreName;
@@ -88,7 +86,7 @@ public class GUI extends Application {
 		scoreValue.setMinWidth(60);
 		scoreValue.setMinHeight(20);
 
-		btnPlay = new Button(btnPlayStart);
+		btnPlay = new Button("Start");
 		btnPause = new Button("II");
 
 		btnPlay.setMinWidth(60);
@@ -107,20 +105,22 @@ public class GUI extends Application {
 			}
 			if (paused) {
 				restartGame();
-				btnPlay.setText(btnPlayStart);
+				btnPlay.setText("Start");
 			}
 		});
 
 		btnPause.setOnAction(event -> {
-			if (paused == false) {
+			if (paused) {
+				timeline.play();
+				btnPause.setText("II");
+				btnPlay.setText("Start");
+				paused = false;
+			} else {
 				timeline.pause();
 				paused = true;
 				btnPause.setText(">");
-				btnPlay.setText(btnPlayRestart);
-			} else {
-				timeline.play();
-				btnPause.setText("II");
-				paused = false;
+				btnPlay.setText("Restart");
+
 			}
 
 		});
